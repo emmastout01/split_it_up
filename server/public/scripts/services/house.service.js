@@ -1,4 +1,4 @@
-myApp.service('HouseService', function($http, $location){
+myApp.service('HouseService', function($http, $location, UserService){
     console.log('HouseService Loaded');
     var self = this;
 
@@ -9,12 +9,39 @@ myApp.service('HouseService', function($http, $location){
             totalRent: newHouse.totalRent,
             closeOutDate: newHouse.closeOutDate
         }
-        $http.post('/addHouse', houseToSend).then(function(response) {
+        return $http.post('/house', houseToSend).then(function(response) {
             console.log('new house post', response)
+            self.getHouses();
             return response;
         }).catch(function(err) {
             console.log('house post didn\'t work', err);
         })
     }
 
+    self.getHouses = function() {
+        return $http.get('/house').then(function(response) {
+            console.log('got houses', response);
+            return response;
+        })
+    }
+
+    self.addMember = function(newMemberCode, selectedHouse){
+        var memberToSend = {
+           code: newMemberCode,
+           selectedHouse: selectedHouse,
+           userId: UserService.userObject.userId
+        }
+        console.log(memberToSend);
+        return $http.post('/member', memberToSend).then(function(response) {
+            console.log('new member post', response)
+            self.getHouses();
+            return response;
+        }).catch(function(err) {
+            if(err.status === 401) {
+            //    alert('The house code you entered is incorrect. Please try again.');
+            }
+            return err;
+            // console.log('problem with post route', err);
+        })
+    }
 });
