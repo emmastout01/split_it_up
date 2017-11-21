@@ -8,13 +8,11 @@
         Select a house to join: <select ng-model="uc.selectedHouse">
             <option ng-repeat = "house in uc.houses">{{house.houseName}}</option> 
         </select>
-        <button ng-click="uc.selectHouse(uc.selectedHouse)">Select house</button> <!-- ng-click to a function that will show the following lines of code, and will check them against the specific house that was selected. OR (like add house below) create a pop-up where you enter the house code and then join the house in the swal-->
-        <br>
+        <button ng-click="uc.selectHouse(uc.selectedHouse)">Select house</button> 
+        <!-- <br>
         <br>
         House Code: <input type="text" ng-model="uc.enteredHouseCode"></input> 
-         <!-- ng-model should be the argument to a function that checks if the ng-model value is the same as the house code from the database -->
-         <button ng-click="uc.joinHouse(uc.enteredHouseCode, uc.selectedHouse)">Join House</button> 
-         <!-- ng-click to a function that will add a member to the member database, crosslisting the user id and the house id from the selected house -->
+         <button ng-click="uc.joinHouse(uc.enteredHouseCode, uc.selectedHouse)">Join House</button>  -->
         <br>
         <br>
         <button class="">Create a new house</button> <!--ng-click: if there is a way to do this, set up a sweet alert that will pop up and allow the user to enter inputs about a new house and create the new house in a pop-up on the screen, instead of completely redirecting them --> 

@@ -1,4 +1,4 @@
-myApp.controller('UserController', function(UserService, HouseService) {
+myApp.controller('UserController', function (UserService, HouseService) {
   console.log('UserController created');
   var vm = this;
   vm.userService = UserService;
@@ -11,8 +11,8 @@ myApp.controller('UserController', function(UserService, HouseService) {
 
   vm.enteredHouseCode = '';
 
-  vm.getHouses = function() {
-    vm.houseService.getHouses().then(function(response) {
+  vm.getHouses = function () {
+    vm.houseService.getHouses().then(function (response) {
       vm.houses = response.data;
     });
   }
@@ -20,31 +20,54 @@ myApp.controller('UserController', function(UserService, HouseService) {
   vm.getHouses();
   console.log('houses in controller', vm.houses);
 
-  vm.selectHouse = function(selectedHouse) {
+  vm.selectHouse = function (selectedHouse) {
     console.log('in selectHouse', selectedHouse);
     // This function will then either ng-show an input field for house code and "join house" button, or create an alert to enter the code
-    swal("House code for " + selectedHouse + ":", {
-      content: "input", 
-    }).then(function(houseCode) {
-      swal('You typed: ' + houseCode);
-    });
-  }
+    var dataToSend = {
+      house: selectedHouse,
+      code: ''
+    };
+    swal({
+      title: "Join House",
+      text: "Plese enter house code:",
+      content: "input",
+      button: "Join House"
+    }).then(function (houseCode) {
+      dataToSend.code = houseCode;
+      vm.houseService.addMember(houseCode, selectedHouse).then(function (response) {
+        if (response.status === 201) {
+          swal({
+            title: 'You have successfully joined ' + selectedHouse + '!',
+            icon: "success"
+          })
+        }
+        else if (response.status === 401) {
+          swal({
+            title: 'Incorrect house code',
+            icon: "error"
+          });
+        }
+        console.log('response from server', response.status);
+      })
+    }); //End sweet alert post route
+  } //End selectHouse
 
-  vm.joinHouse = function(enteredHouseCode, selectedHouse) {
-    console.log('in join house', enteredHouseCode, ',', selectedHouse);
-    vm.houseService.addMember(enteredHouseCode, selectedHouse).then(function(response) {
-      if (response.status === 401) {
-        swal('uh oh!');
-      }
-      console.log('response from server', response.status);
-    })
-
-    //Logic of whether the house codes match should be on the server side
-    //So, I want a post route that only works if the code the person enters matches houseCode from the house table
-    //Specifically, if the code matches the houseCode, where the houseName matches
-  }
 
 
 
 
-});
+
+
+
+  
+}); //End userController
+
+  // vm.joinHouse = function(enteredHouseCode, selectedHouse) {
+  //   console.log('in join house', enteredHouseCode, ',', selectedHouse);
+  //   vm.houseService.addMember(enteredHouseCode, selectedHouse).then(function(response) {
+  //     if (response.status === 401) {
+  //       swal('uh oh!');
+  //     }
+  //     console.log('response from server', response.status);
+  //   })
+
