@@ -18,13 +18,8 @@ myApp.controller('UserController', function (UserService, HouseService) {
   }
   vm.getHouses();
 
-  vm.getUserHouses = function(userId) {
-    //OR: Do a get houses for a particular user request. I'll need to do this in order to show what houses a member is a part of. If the user is a member of one or more houses, the message is 'select a house' and the houses are shown below that. If the user is not a member of a house, the message is 'you're not connected'
-    //get request with req.params as user id
-    
-    //Call a get request from the service here
-    vm.houseService.getUserHouses(userId).then(function(response) {
-      console.log('get user houses worked!');
+  vm.getUserHouses = function() {
+    vm.houseService.getUserHouses().then(function(response) {
       vm.userHouses = response.data;
       if (response.data.length === 0) {
         console.log('no houses!')
@@ -34,9 +29,8 @@ myApp.controller('UserController', function (UserService, HouseService) {
       }
     })
   }
+  vm.getUserHouses();
 
-  vm.getUserHouses(2);
-  // getUserHouses(vm.userObject._id) <--Or something? Something to access the user
 
   vm.selectHouse = function (selectedHouse) {
     console.log('in selectHouse', selectedHouse);
@@ -58,6 +52,7 @@ myApp.controller('UserController', function (UserService, HouseService) {
             title: 'You have successfully joined ' + selectedHouse + '!',
             icon: "success"
           })
+          vm.getUserHouses();
         }
         else if (response.status === 401) {
           swal({

@@ -53,34 +53,6 @@ router.get('/', function (req, res) {
     } // end req.isAuthenticated
 }); //end of get route
 
-// Handles GET request with user houses
-router.get('/:id', function (req, res) {
-    if (req.isAuthenticated) {
-        var userId = req.params.id;
-        pool.connect(function (err, houses, done) {
-            if (err) {
-                console.log("Error connecting: ", err);
-                res.sendStatus(500);
-            }
-            else {
-                // SELECT "warehouse"."warehouse", "products"."description"
-                // FROM "warehouse" JOIN "warehouse_product" ON "warehouse"."id" = "warehouse_product"."warehouse_id"
-                // JOIN "products" ON "products"."id" = "warehouse_product"."product_id"
-                // WHERE "description" = 'diet pepsi';
-                //Select the house name. I want the house name of the houses where the user is a member. So, I think I want a join here. Select houseName from Houses join Members on house_id WHERE "user_id" = $1 ($1 = the variable userId)
-                var queryText = 'SELECT "houses"."houseName" FROM "houses" JOIN "members" ON "houses"."id" = "members"."house_id" WHERE "user_id" = $1'
-                houses.query(queryText, [userId], function (errorMakingQuery, result) {
-                    done();
-                    if (errorMakingQuery) {
-                        console.log('error making query', errorMakingQuery);
-                        res.sendStatus(500);
-                    } else {
-                        res.send(result.rows);
-                    }
-                });
-            }
-        }); //end of pool
-    } // end req.isAuthenticated
-}); //end of get route
+
 
 module.exports = router;
