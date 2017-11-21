@@ -75,26 +75,30 @@ router.post('/', function (req, res) {
 
 //delete member from house
 router.delete('/:id', function (req, res) {
-    var houseId = req.params.id;
-    console.log('house id', houseId, 'user id', userId);
-    var userId = req.user.id;
-    pool.connect(function (errorConnecting, db, done) {
-      if (errorConnecting) {
-        console.log('Error connecting ', errorConnecting);
-        res.sendStatus(500);
-      } else {
-        var queryText = 'DELETE FROM "members" WHERE "house_id" = $1;';
-        db.query(queryText,[houseId], function (errorMakingQuery, result) {
-          done();
-          if (errorMakingQuery) {
-            console.log('errorMakingQuery', errorMakingQuery);
-            res.sendStatus(500);
-          } else {
-            res.sendStatus(201);
-          }
-        });
-      }
-    });//end of pool
-  });//end of delete
+    if (req.isAuthenticated) {
+        var houseId = req.params.id;
+        console.log('house id', houseId, 'user id', userId);
+        var userId = req.user.id;
+        pool.connect(function (errorConnecting, db, done) {
+            if (errorConnecting) {
+                console.log('Error connecting ', errorConnecting);
+                res.sendStatus(500);
+            } else {
+                var queryText = 'DELETE FROM "members" WHERE "house_id" = $1 AND "user_id" = $2;';
+                //USER ID HERE is undefined, I think this is a problem--but also maybe it's working anyway? Look into this tonight.
+
+                db.query(queryText, [houseId, userId], function (errorMakingQuery, result) {
+                    done();
+                    if (errorMakingQuery) {
+                        console.log('errorMakingQuery', errorMakingQuery);
+                        res.sendStatus(500);
+                    } else {
+                        res.sendStatus(201);
+                    }
+                });
+            }
+        });//end of pool
+    } //end of is authenticated
+});//end of delete
 
 module.exports = router;
