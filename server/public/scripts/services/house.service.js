@@ -18,6 +18,15 @@ myApp.service('HouseService', function($http, $location, UserService){
         })
     }
 
+    self.getUserHouses = function(userId) {
+        return $http.get('/house/' + userId).then(function(response) {
+            console.log('got user houses', response);
+            return response;
+        }).catch(function(err) {
+            console.log('get user houses failed', err);
+        })
+    }
+
     self.getHouses = function() {
         return $http.get('/house').then(function(response) {
             console.log('got houses', response);

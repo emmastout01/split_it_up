@@ -2,7 +2,11 @@
 <div class="container">
 
     <h1 id="welcome" class="lead">Welcome, {{uc.userObject.userName}}!</h1>
-    <h3>You are not connected to a house yet.</h3> <!--This message should change depending on if the user is connected to houses or not. -->
+    <h3>{{uc.message}}</h3> <!--This message should change depending on if the user is connected to houses or not. -->
+
+    <div ng-repeat= "userHouse in uc.userHouses"> Here is a house: {{userHouse.houseName}} <br></div>
+    <br>
+
 
     <form ng-submit="uc.selectHouse">
         Select a house to join: <select ng-model="uc.selectedHouse">
@@ -15,7 +19,7 @@
          <button ng-click="uc.joinHouse(uc.enteredHouseCode, uc.selectedHouse)">Join House</button>  -->
         <br>
         <br>
-        <button class="">Create a new house</button> <!--ng-click: if there is a way to do this, set up a sweet alert that will pop up and allow the user to enter inputs about a new house and create the new house in a pop-up on the screen, instead of completely redirecting them --> 
+        <button ng-click ="uc.createHouse()">Create a new house</button> <!--ng-click: if there is a way to do this, set up a sweet alert that will pop up and allow the user to enter inputs about a new house and create the new house in a pop-up on the screen, instead of completely redirecting them --> 
         <br>
         <br>
     <button class="btn btn-default" ng-click="uc.userService.logout()">Log Out</button>

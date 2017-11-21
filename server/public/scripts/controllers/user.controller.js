@@ -5,10 +5,10 @@ myApp.controller('UserController', function (UserService, HouseService) {
   vm.userObject = UserService.userObject;
   vm.houseService = HouseService;
 
+  vm.message = ''
   vm.houses = '';
-
+  vm.userHouses = '';
   vm.selectedHouse = '';
-
   vm.enteredHouseCode = '';
 
   vm.getHouses = function () {
@@ -16,9 +16,27 @@ myApp.controller('UserController', function (UserService, HouseService) {
       vm.houses = response.data;
     });
   }
-
   vm.getHouses();
-  console.log('houses in controller', vm.houses);
+
+  vm.getUserHouses = function(userId) {
+    //OR: Do a get houses for a particular user request. I'll need to do this in order to show what houses a member is a part of. If the user is a member of one or more houses, the message is 'select a house' and the houses are shown below that. If the user is not a member of a house, the message is 'you're not connected'
+    //get request with req.params as user id
+    
+    //Call a get request from the service here
+    vm.houseService.getUserHouses(userId).then(function(response) {
+      console.log('get user houses worked!');
+      vm.userHouses = response.data;
+      if (response.data.length === 0) {
+        console.log('no houses!')
+        vm.message = 'You are not connected to a house yet.'
+      } else {
+        vm.message = 'Select one of your houses to view and add transactions for that house.'
+      }
+    })
+  }
+
+  vm.getUserHouses(2);
+  // getUserHouses(vm.userObject._id) <--Or something? Something to access the user
 
   vm.selectHouse = function (selectedHouse) {
     console.log('in selectHouse', selectedHouse);
@@ -52,6 +70,15 @@ myApp.controller('UserController', function (UserService, HouseService) {
     }); //End sweet alert post route
   } //End selectHouse
 
+vm.createHouse = function() {
+//   var houseToSend = {
+//     houseName: newHouse.houseName,
+//     houseCode: newHouse.houseCode,
+//     totalRent: newHouse.totalRent,
+//     closeOutDate: newHouse.closeOutDate
+// }
+
+}
 
 
 
@@ -59,7 +86,6 @@ myApp.controller('UserController', function (UserService, HouseService) {
 
 
 
-  
 }); //End userController
 
   // vm.joinHouse = function(enteredHouseCode, selectedHouse) {
