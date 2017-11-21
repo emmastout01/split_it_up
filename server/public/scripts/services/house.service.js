@@ -27,6 +27,13 @@ myApp.service('HouseService', function($http, $location, UserService){
         })
     }
 
+    self.removeHouse = function(userHouse) {
+        return $http.delete('/member/' + userHouse).then(function(response) {
+            console.log('deleted house', response);
+            return response;
+        })
+    }
+
     self.getHouses = function() {
         return $http.get('/house').then(function(response) {
             console.log('got houses', response);

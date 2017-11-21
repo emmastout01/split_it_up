@@ -11,13 +11,6 @@ myApp.controller('UserController', function (UserService, HouseService) {
   vm.selectedHouse = '';
   vm.enteredHouseCode = '';
 
-  vm.getHouses = function () {
-    vm.houseService.getHouses().then(function (response) {
-      vm.houses = response.data;
-    });
-  }
-  vm.getHouses();
-
   vm.getUserHouses = function() {
     vm.houseService.getUserHouses().then(function(response) {
       vm.userHouses = response.data;
@@ -31,6 +24,33 @@ myApp.controller('UserController', function (UserService, HouseService) {
   }
   vm.getUserHouses();
 
+  vm.removeHouse = function(userHouse) {
+    console.log('user house', userHouse, userHouse.id);
+      swal({
+        title: "Are you sure you want to remove " + userHouse.houseName + " from your houses?",
+        text: "You will no longer be able to add and view transactions for this house.",
+        icon: "warning",
+        buttons: ["Cancel","OK"],
+        dangerMode: true,
+      }).then(function(willDelete) {
+        if (willDelete) {
+          vm.houseService.removeHouse(userHouse.id).then(function(response) {
+            swal({title: "You have successfully removed " + userHouse.houseName + " from your houses."});
+            vm.getUserHouses();
+          })
+        } else {
+          swal({title: "Phew!"})
+        }
+      });
+    }
+    
+
+  vm.getHouses = function () {
+    vm.houseService.getHouses().then(function (response) {
+      vm.houses = response.data;
+    });
+  }
+  vm.getHouses();
 
   vm.selectHouse = function (selectedHouse) {
     console.log('in selectHouse', selectedHouse);
@@ -59,6 +79,12 @@ myApp.controller('UserController', function (UserService, HouseService) {
             title: 'Incorrect house code',
             icon: "error"
           });
+        }
+        else if (response.status === 409) {
+          swal({
+            title: 'You already belong to ' + selectedHouse + '!',
+            icon: 'warning'
+          })
         }
         console.log('response from server', response.status);
       })

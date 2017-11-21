@@ -4,7 +4,8 @@
     <h1 id="welcome" class="lead">Welcome, {{uc.userObject.userName}}!</h1>
     <h3>{{uc.message}}</h3> <!--This message should change depending on if the user is connected to houses or not. -->
 
-    <div ng-repeat= "userHouse in uc.userHouses"> Here is a house: {{userHouse.houseName}} <br></div>
+    <div ng-repeat= "userHouse in uc.userHouses"> 
+        <span>Here is a house: {{userHouse.houseName}} <button ng-click="uc.removeHouse(userHouse)">Remove house from my list</button></span>   <br></div>
     <br>
 
 

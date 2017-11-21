@@ -8,14 +8,13 @@ var pool = require('../modules/pool.js');
 router.get('/', function (req, res) {
     if (req.isAuthenticated) {
         var userId = req.user.id;
-        console.log('HERE IS THE USER ID', userId);
         pool.connect(function (err, houses, done) {
             if (err) {
                 console.log("Error connecting: ", err);
                 res.sendStatus(500);
             }
             else {
-                var queryText = 'SELECT "houses"."houseName" FROM "houses" JOIN "members" ON "houses"."id" = "members"."house_id" WHERE "user_id" = $1'
+                var queryText = 'SELECT "houses"."houseName", "houses"."id" FROM "houses" JOIN "members" ON "houses"."id" = "members"."house_id" WHERE "user_id" = $1'
                 houses.query(queryText, [userId], function (errorMakingQuery, result) {
                     done();
                     if (errorMakingQuery) {
@@ -29,6 +28,7 @@ router.get('/', function (req, res) {
         }); //end of pool
     } // end req.isAuthenticated
 }); //end of get route
+
 
 //Will also have an update or delete route here: Users who are a member of a house will be able to remove themselves from that house
 

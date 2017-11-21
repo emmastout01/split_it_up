@@ -45,7 +45,6 @@ router.post('/', function (req, res) {
                                     }
                                     //If member has joined a house, send back status and tell the user they have already joined the house.
                                     if (memberAlreadyJoined) {
-                                        console.log('member already joined!')
                                         res.sendStatus(409);
                                     } else {
                                         //If member has not already joined, add that user to the member table 
@@ -74,5 +73,28 @@ router.post('/', function (req, res) {
     } // end req.isAuthenticated
 });  //end of post
 
+//delete member from house
+router.delete('/:id', function (req, res) {
+    var houseId = req.params.id;
+    console.log('house id', houseId, 'user id', userId);
+    var userId = req.user.id;
+    pool.connect(function (errorConnecting, db, done) {
+      if (errorConnecting) {
+        console.log('Error connecting ', errorConnecting);
+        res.sendStatus(500);
+      } else {
+        var queryText = 'DELETE FROM "members" WHERE "house_id" = $1;';
+        db.query(queryText,[houseId], function (errorMakingQuery, result) {
+          done();
+          if (errorMakingQuery) {
+            console.log('errorMakingQuery', errorMakingQuery);
+            res.sendStatus(500);
+          } else {
+            res.sendStatus(201);
+          }
+        });
+      }
+    });//end of pool
+  });//end of delete
 
 module.exports = router;
