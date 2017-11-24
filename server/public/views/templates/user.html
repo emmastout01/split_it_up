@@ -2,10 +2,9 @@
 <div class="container">
 
     <h1 id="welcome" class="lead">Welcome, {{uc.userObject.userName}}!</h1>
-    <h3>{{uc.message}}</h3> <!--This message should change depending on if the user is connected to houses or not. -->
-
+    <h3>{{uc.message}}</h3> 
     <div ng-repeat= "userHouse in uc.userHouses"> 
-        <span>Here is a house: {{userHouse.houseName}} <button ng-click="uc.removeHouse(userHouse)">Remove house from my list</button></span>   <br></div>
+        <span><a href="#/houseHome/{{userHouse.id}}"><button ng-click="uc.getHouseId(userHouse)">{{userHouse.houseName}}</button></a><button ng-click="uc.removeHouse(userHouse)">Remove house from my list</button></span>   <br></div>
     <br>
 
 
@@ -14,10 +13,6 @@
             <option ng-repeat = "house in uc.houses">{{house.houseName}}</option> 
         </select>
         <button ng-click="uc.selectHouse(uc.selectedHouse)">Select house</button> 
-        <!-- <br>
-        <br>
-        House Code: <input type="text" ng-model="uc.enteredHouseCode"></input> 
-         <button ng-click="uc.joinHouse(uc.enteredHouseCode, uc.selectedHouse)">Join House</button>  -->
         <br>
         <br>
         <button ng-click ="uc.createHouse()">Create a new house</button> <!--ng-click: if there is a way to do this, set up a sweet alert that will pop up and allow the user to enter inputs about a new house and create the new house in a pop-up on the screen, instead of completely redirecting them --> 

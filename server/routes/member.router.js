@@ -77,16 +77,14 @@ router.post('/', function (req, res) {
 router.delete('/:id', function (req, res) {
     if (req.isAuthenticated) {
         var houseId = req.params.id;
-        console.log('house id', houseId, 'user id', userId);
         var userId = req.user.id;
+        console.log('house id', houseId, 'user id', userId);
         pool.connect(function (errorConnecting, db, done) {
             if (errorConnecting) {
                 console.log('Error connecting ', errorConnecting);
                 res.sendStatus(500);
             } else {
-                var queryText = 'DELETE FROM "members" WHERE "house_id" = $1 AND "user_id" = $2;';
-                //USER ID HERE is undefined, I think this is a problem--but also maybe it's working anyway? Look into this tonight.
-
+                var queryText = 'DELETE FROM "members" WHERE "house_id" = $1 AND "user_id" = $2;'
                 db.query(queryText, [houseId, userId], function (errorMakingQuery, result) {
                     done();
                     if (errorMakingQuery) {

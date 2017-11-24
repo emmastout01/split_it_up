@@ -6,7 +6,7 @@ myApp.config(function($routeProvider, $locationProvider) {
   console.log('myApp -- config')
   $routeProvider
     .when('/home', {
-      templateUrl: '/views/templates/home.html',
+      templateUrl: '/views/templates/login.html',
       controller: 'LoginController as lc',
     })
     .when('/register', {
@@ -31,9 +31,27 @@ myApp.config(function($routeProvider, $locationProvider) {
         }
       }
     })
-    .when('/addHouse', {
-      templateUrl: '/views/templates/addHouse.html',
-      controller: 'InfoController as ic',
+    .when('/houseHome/:id', {
+      templateUrl: '/views/templates/houseHome.html',
+      controller: 'HouseController as hc',
+      resolve: {
+        getuser : function(UserService){
+          return UserService.getuser();
+        }
+      }
+    })
+    .when('/addTransaction/:id', {
+      templateUrl: '/views/templates/addTrans.html',
+      controller: 'TransactionController as tc',
+      resolve: {
+        getuser : function(UserService){
+          return UserService.getuser();
+        }
+      }
+    })
+    .when('/viewTransactions/:id', {
+      templateUrl: '/views/templates/viewTrans.html',
+      controller: 'TransactionController as tc',
       resolve: {
         getuser : function(UserService){
           return UserService.getuser();

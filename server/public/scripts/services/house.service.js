@@ -1,6 +1,16 @@
-myApp.service('HouseService', function($http, $location, UserService){
+myApp.service('HouseService', function($routeParams, $http, $location, UserService){
     console.log('HouseService Loaded');
     var self = this;
+
+    self.houseId = {
+        id: ''
+    }
+
+    self.getHouseId = function(userHouse) {
+        self.houseId.id = userHouse.id;
+    }
+
+    console.log('route params', $routeParams.id);
 
     self.addHouse = function(newHouse){
         var houseToSend = {
@@ -25,6 +35,11 @@ myApp.service('HouseService', function($http, $location, UserService){
         }).catch(function(err) {
             console.log('get user houses failed', err);
         })
+    }
+
+    self.getHouseId = function(userHouse) {
+        self.houseId.id = userHouse.id;
+        console.log('house service house id', self.houseId.id);
     }
 
     self.removeHouse = function(userHouse) {

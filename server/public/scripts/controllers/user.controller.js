@@ -1,4 +1,4 @@
-myApp.controller('UserController', function (UserService, HouseService) {
+myApp.controller('UserController', function ($location, UserService, HouseService) {
   console.log('UserController created');
   var vm = this;
   vm.userService = UserService;
@@ -10,6 +10,14 @@ myApp.controller('UserController', function (UserService, HouseService) {
   vm.userHouses = '';
   vm.selectedHouse = '';
   vm.enteredHouseCode = '';
+  
+
+
+  vm.getHouseId = function(userHouse) {
+    console.log('just clicked on ', userHouse.id);
+    vm.houseService.getHouseId(userHouse);
+    // $location.path('/houseHome/' + response.data[0].id);
+  }
 
   vm.getUserHouses = function() {
     vm.houseService.getUserHouses().then(function(response) {
@@ -17,6 +25,9 @@ myApp.controller('UserController', function (UserService, HouseService) {
       if (response.data.length === 0) {
         console.log('no houses!')
         vm.message = 'You are not connected to a house yet.'
+      } else if (response.data.length ===1) {
+        //If the user is a member of just one house, direct the user to house homepage instead of 'choose a house' page
+        $location.path('/houseHome/' + response.data[0].id);
       } else {
         vm.message = 'Select one of your houses to view and add transactions for that house.'
       }
