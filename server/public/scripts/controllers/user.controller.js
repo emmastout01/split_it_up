@@ -1,4 +1,4 @@
-myApp.controller('UserController', function ($location, UserService, HouseService) {
+myApp.controller('UserController', function ($location, $mdDialog, UserService, HouseService) {
   console.log('UserController created');
   var vm = this;
   vm.userService = UserService;
@@ -27,7 +27,8 @@ myApp.controller('UserController', function ($location, UserService, HouseServic
         vm.message = 'You are not connected to a house yet.'
       } else if (response.data.length ===1) {
         //If the user is a member of just one house, direct the user to house homepage instead of 'choose a house' page
-        $location.path('/houseHome/' + response.data[0].id);
+       //Need to rethink this a little, because if you delete a house then it instantly redirects you to the house home page
+        // $location.path('/houseHome/' + response.data[0].id);
       } else {
         vm.message = 'Select one of your houses to view and add transactions for that house.'
       }
@@ -102,15 +103,14 @@ myApp.controller('UserController', function ($location, UserService, HouseServic
     }); //End sweet alert post route
   } //End selectHouse
 
-vm.createHouse = function() {
-//   var houseToSend = {
-//     houseName: newHouse.houseName,
-//     houseCode: newHouse.houseCode,
-//     totalRent: newHouse.totalRent,
-//     closeOutDate: newHouse.closeOutDate
-// }
-
-}
+vm.createHouse = function(ev) {
+  $mdDialog.show({
+    controller: DialogController,
+    templateUrl: '/views/dialogs/dialog.addHouse.html',
+    targetEvent: ev,
+    clickOutsideToClose: true
+  })
+};
 
 
 
