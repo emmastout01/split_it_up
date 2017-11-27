@@ -11,6 +11,9 @@ myApp.controller('UserController', function ($location, $mdDialog, UserService, 
   vm.selectedHouse = '';
   vm.enteredHouseCode = '';
 
+  vm.houseId = {
+    id: ''
+  }
   vm.getHouseId = function(userHouse) {
     console.log('just clicked on ', userHouse.id);
     vm.houseService.getHouseId(userHouse);

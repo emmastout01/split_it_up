@@ -1,12 +1,17 @@
-myApp.service('TransactionService', function($http, $location, UserService){
+myApp.service('TransactionService', function($http, $routeParams, $location, UserService){
     console.log('TransactionService Loaded');
     var self = this;
     self.transactionList = {
         trans: []
     }
 
+    var houseId = $routeParams.id;
+    console.log('house id from route params', houseId);
+
     self.addTransaction = function(newTransaction){
         var transactionToSend = {
+            userId: UserService.userObject.userId,
+            houseId: houseId,
             date: newTransaction.date,
             amount: newTransaction.amount,
             category: newTransaction.category,

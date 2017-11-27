@@ -45,6 +45,7 @@ router.post('/', function (req, res) {
                                     }
                                     //If member has joined a house, send back status and tell the user they have already joined the house.
                                     if (memberAlreadyJoined) {
+                                        //Send 'conflict' status. This triggers a message on the DOM
                                         res.sendStatus(409);
                                     } else {
                                         //If member has not already joined, add that user to the member table 

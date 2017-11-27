@@ -9,6 +9,15 @@ myApp.service('HouseService', function($routeParams, $http, $location, UserServi
         closeOutDate: ''
     }
 
+    self.getCurrentHouse = function(houseId) {
+        return $http.get('/currentHouse/' + houseId).then(function(response) {
+            console.log('got current house', response);
+            return response;
+        }).catch(function(err) {
+            console.log('get current house failed', err);
+        })
+    }
+
     self.getHouseId = function(userHouse) {
         self.currentHouse.id = userHouse.id;
         self.currentHouse.name = userHouse.houseName;

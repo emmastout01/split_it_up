@@ -13,8 +13,8 @@ router.post('/', function (req, res) {
                 res.sendStatus(500);
             }
             else {
-                var queryText = 'INSERT INTO "transactions" ("date", "amount", "category_id", "notes", "viewReceipt") VALUES ($1, $2, $3, $4, $5);'
-                db.query(queryText, [newTrans.date, newTrans.amount, newTrans.category, newTrans.notes, newTrans.photo], function (errorMakingQuery, result) {
+                var queryText = 'INSERT INTO "transactions" ("user_id", "house_id", "date", "amount", "category_id", "notes", "viewReceipt") VALUES ($1, $2, $3, $4, $5, $6, $7);'
+                db.query(queryText, [newTrans.userId, newTrans.houseId, newTrans.date, newTrans.amount, newTrans.category, newTrans.notes, newTrans.photo], function (errorMakingQuery, result) {
                     done();
                     if (errorMakingQuery) {
                         console.log('error making query', errorMakingQuery);
