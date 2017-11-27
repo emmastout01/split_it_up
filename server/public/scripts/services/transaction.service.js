@@ -5,6 +5,32 @@ myApp.service('TransactionService', function($http, $location, UserService){
         trans: []
     }
 
+    self.addTransaction = function(newTransaction){
+        var transactionToSend = {
+            date: newTransaction.date,
+            amount: newTransaction.amount,
+            category: newTransaction.category,
+            notes: newTransaction.notes,
+            photo: newTransaction.photo
+        }
+        return $http.post('/transaction', transactionToSend).then(function(response) {
+            console.log('new transaction post', response)
+            // self.getHouses();
+            return response;
+        }).catch(function(err) {
+            console.log('transaction post didn\'t work', err);
+        })
+    }
+    
+
+    self.getTransactions = function() {
+        return $http.get('/transaction').then(function(response) {
+            console.log('got transactions', response);
+            self.transactionList.trans = response.data;
+            return response;
+        })
+    }
+});
 
     // //This should run when we click 'house name' or 'view transactions'
     // self.totalAmount = function(house_id, transactionList) {
@@ -20,14 +46,3 @@ myApp.service('TransactionService', function($http, $location, UserService){
     //     })
     //     //ALl of this should return one number: the total sum of transaction amounts for the house
     // }
-
-    
-
-    self.getTransactions = function() {
-        return $http.get('/transaction').then(function(response) {
-            console.log('got transactions', response);
-            self.transactionList.trans = response.data;
-            return response;
-        })
-    }
-});

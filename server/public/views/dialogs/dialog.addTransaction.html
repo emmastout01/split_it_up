@@ -6,15 +6,17 @@
             </div>
           </md-toolbar>
       
+          <!-- Amount, category, date, notes, upload photo of receipt -->
           <md-dialog-content>
             <div class="md-dialog-content">
               <form>
-                 <strong>House Name:</strong>  <input type="text" ng-model="dc.newHouse.houseName" id="cost" placeholder='House Name' /> <br> <br>
-                 <strong>House Code: </strong><input type="text" ng-model="dc.newHouse.houseCode" id="cost" placeholder='House Code' /> <br> <br>
-                 <strong>Total Rent: </strong> <input type="text" ng-model="dc.newHouse.totalRent" id="sqft" placeholder='Total Rent' /> <br> <br>
-                 <strong>What day of the month would you like to close out costs? </strong>  <select ng-model="dc.newHouse.closeOutDate">
-                        <option ng-repeat = "number in dc.numbers">{{number}}</option> 
-                    </select> days before the end of the month
+                 <strong>Amount: </strong>  $<input type="number" min="0.01" step="0.01" max="2500" ng-model="dc.newTransaction.amount" placeholder='Amount' />
+                 <br> <br>
+                 <strong>Category: </strong><input type="text" ng-model="dc.newTransaction.category" placeholder='Category' /> <br> <br>
+                 <strong>Date: </strong>  <md-datepicker ng-model="dc.newTransaction.date" md-placeholder="Date"
+                     md-min-date="dc.minDate" md-max-date="dc.maxDate"></md-datepicker> <br> <br>
+                 <strong>Notes: </strong>  <textarea cols="30" rows="10" ng-model="dc.newTransaction.notes"></textarea>
+                <strong>Upload Photo of receipt: </strong> <input type="text" ng-model="dc.newTransaction.photo" placeholder="Not working yet" /> <br> <br>
                   </form>
             </div>
           </md-dialog-content>

@@ -1,11 +1,12 @@
-myApp.controller('DialogController', function($mdDialog, HouseService, UserService) {
+myApp.controller('DialogController', function($mdDialog, HouseService, UserService, TransactionService) {
     console.log('DialogController created');
     var vm = this;
     vm.houseService = HouseService;
     vm.userService = UserService;
     vm.userObject = UserService.userObject;
+    vm.transactionService = TransactionService;
 
-    // Add house dialog on user home page
+    // House dialog on user home page
     
     //Add house on submit click
     vm.addHouse = function (newHouse) {
@@ -21,20 +22,17 @@ myApp.controller('DialogController', function($mdDialog, HouseService, UserServi
     vm.numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 
-
-
     //Add transaction dialog on add transaction page
+    vm.addTransaction = function (newTransaction) {
+      console.log('adding transaction');
+      vm.transactionService.addTransaction(newTransaction).then(function() {
+        $mdDialog.hide()
+        })
+    }
 
+    //Date Picker
 
-
-
-    // Cancels a dialog box
-    vm.cancel = function () {
-      $mdDialog.cancel();
-    };
-
-
-     
+    //Stand in numbers for date picker : will be changed to the user-entered close-out info
     var number = 2; 
     var secondNumber = 3;
 
@@ -51,6 +49,18 @@ myApp.controller('DialogController', function($mdDialog, HouseService, UserServi
         vm.myDate.getMonth() +1,
         -secondNumber
       );
+
+
+    // Cancels a dialog box
+    vm.cancel = function () {
+      $mdDialog.cancel();
+    };
+
+
+     
+
+
+   
 
   });
   
