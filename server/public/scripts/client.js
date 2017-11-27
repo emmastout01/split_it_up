@@ -40,15 +40,6 @@ myApp.config(function($routeProvider, $locationProvider) {
         }
       }
     })
-    .when('/addTransaction/:id', {
-      templateUrl: '/views/templates/addTrans.html',
-      controller: 'TransactionController as tc',
-      resolve: {
-        getuser : function(UserService){
-          return UserService.getuser();
-        }
-      }
-    })
     .when('/viewTransactions/:id', {
       templateUrl: '/views/templates/viewTrans.html',
       controller: 'TransactionController as tc',

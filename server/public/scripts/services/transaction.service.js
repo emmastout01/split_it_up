@@ -8,6 +8,7 @@ myApp.service('TransactionService', function($http, $routeParams, $location, Use
     var houseId = $routeParams.id;
     console.log('house id from route params', houseId);
 
+    //POST transaction to DB
     self.addTransaction = function(newTransaction){
         var transactionToSend = {
             userId: UserService.userObject.userId,
@@ -27,7 +28,7 @@ myApp.service('TransactionService', function($http, $routeParams, $location, Use
         })
     }
     
-
+    //GET transactions
     self.getTransactions = function(houseId) {
         return $http.get('/transaction/' + houseId).then(function(response) {
             console.log('got transactions', response);
@@ -35,7 +36,29 @@ myApp.service('TransactionService', function($http, $routeParams, $location, Use
             return response;
         })
     }
+
+    self.getCategories = function () {
+        return $http.get('/category').then(function (response) {
+            console.log('got categories', response);
+            self.transactionList.trans = response.data;
+            return response;
+        })
+    }
+
+
+
 });
+
+
+
+
+
+
+
+
+
+
+
 
     // //This should run when we click 'house name' or 'view transactions'
     // self.totalAmount = function(house_id, transactionList) {

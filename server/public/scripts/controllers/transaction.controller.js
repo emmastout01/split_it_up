@@ -6,7 +6,9 @@ myApp.controller('TransactionController', function($routeParams, UserService, Tr
     vm.houseService = HouseService;
     
     vm.houseId = $routeParams.id
-    vm.transactionList = '';
+    vm.transactions = '';
+
+    //Get the current house on page load, so we have access to the data from that house (house name, id, etc.)
     vm.currentHouse = {
         id: vm.houseService.currentHouse.id,
         name: vm.houseService.currentHouse.name,
@@ -27,17 +29,29 @@ myApp.controller('TransactionController', function($routeParams, UserService, Tr
       }
 
       vm.getCurrentHouse(vm.houseId);
-    
 
+    
+    //Get transactions for the house
     vm.getTransactions = function(houseId) {
         vm.transactionService.getTransactions(houseId).then(function(response) {
-            vm.transactionList = response.data;
-            console.log('transactions in controller', vm.transactionList);
+            vm.transactions = response.data;
+            for (var i=0; i < vm.transactions.length; i++) {
+              vm.transactions[i].date = moment(vm.transactions[i].date).format('MMM Do')
+              console.log(vm.transactions[i].date);
+            }
+            console.log('transactions in controller', vm.transactions);
         })
     }
 
     vm.getTransactions(vm.houseId);
   
-  
+  //Angular table for transactions
+    vm.selected = [];
+
+    vm.query = {
+      order: 'name',
+      limit: 5,
+      page: 1
+    };
     
-  });
+});

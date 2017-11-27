@@ -1,4 +1,4 @@
-myApp.controller('DialogController', function($mdDialog, HouseService, UserService, TransactionService) {
+myApp.controller('DialogController', function ($mdDialog, HouseService, UserService, TransactionService) {
     console.log('DialogController created');
     var vm = this;
     vm.houseService = HouseService;
@@ -6,17 +6,18 @@ myApp.controller('DialogController', function($mdDialog, HouseService, UserServi
     vm.userObject = UserService.userObject;
     vm.transactionService = TransactionService;
 
+    vm.categories = [];
 
     // House dialog on user home page
-    
+
     //Add house on submit click
     vm.addHouse = function (newHouse) {
-      console.log('adding house');
-      vm.houseService.addHouse(newHouse).then(function() {
-        $mdDialog.hide()
-        }).then(function() {
-          vm.houseService.getHouses();
-      })
+        console.log('adding house');
+        vm.houseService.addHouse(newHouse).then(function () {
+            $mdDialog.hide()
+        }).then(function () {
+            vm.houseService.getHouses();
+        })
     }
 
     //Numbers for close out dates on addHouse form
@@ -25,43 +26,52 @@ myApp.controller('DialogController', function($mdDialog, HouseService, UserServi
 
     //Add transaction dialog on add transaction page
     vm.addTransaction = function (newTransaction) {
-      console.log('adding transaction');
-      vm.transactionService.addTransaction(newTransaction).then(function() {
-        $mdDialog.hide()
+        console.log('adding transaction');
+        vm.transactionService.addTransaction(newTransaction).then(function () {
+            $mdDialog.hide()
         })
     }
+
+    //Get request for all categories
+    vm.getCategories = function() {
+        vm.transactionService.getCategories().then(function (response) {
+            vm.categories = response.data;
+            console.log('categories:', vm.categories);
+        })
+    }
+
+    vm.getCategories();
 
     //Date Picker
 
     //Stand in numbers for date picker : will be changed to the user-entered close-out info
-    var number = 2; 
+    var number = 2;
     var secondNumber = 3;
 
     vm.myDate = new Date();
-    
-      vm.minDate = new Date(
-       vm.myDate.getFullYear(),
-       vm.myDate.getMonth(), 
-       -number
-      );
-    
-      vm.maxDate = new Date(
+
+    vm.minDate = new Date(
         vm.myDate.getFullYear(),
-        vm.myDate.getMonth() +1,
+        vm.myDate.getMonth(),
+        -number
+    );
+
+    vm.maxDate = new Date(
+        vm.myDate.getFullYear(),
+        vm.myDate.getMonth() + 1,
         -secondNumber
-      );
+    );
 
 
     // Cancels a dialog box
     vm.cancel = function () {
-      $mdDialog.cancel();
+        $mdDialog.cancel();
     };
 
 
-     
 
 
-   
 
-  });
-  
+
+
+});
