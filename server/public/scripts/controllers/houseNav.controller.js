@@ -3,7 +3,7 @@ myApp.controller('HouseNavController', function(HouseService) {
     var vm = this;
     vm.houseService = HouseService;
 
-    vm.houseId = vm.houseService.houseId.id;
+    vm.houseId = vm.houseService.currentHouse.id;
     console.log('house nav id', vm.houseId);
   });
   

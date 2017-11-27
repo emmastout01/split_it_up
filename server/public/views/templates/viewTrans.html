@@ -1,5 +1,5 @@
 <div ng-include="'views/partials/houseNav.html'"></div>
 <div class="container">
-    <h1>We're in view transactions!</h1>
+    <h1>Transactions for {{tc.currentHouse.name}}:</h1>
     <div ng-repeat = "transaction in tc.transactionList" >{{transaction}}</div>
 </div>

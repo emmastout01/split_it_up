@@ -10,8 +10,6 @@ myApp.controller('UserController', function ($location, $mdDialog, UserService, 
   vm.userHouses = '';
   vm.selectedHouse = '';
   vm.enteredHouseCode = '';
-  
-
 
   vm.getHouseId = function(userHouse) {
     console.log('just clicked on ', userHouse.id);
@@ -103,29 +101,14 @@ myApp.controller('UserController', function ($location, $mdDialog, UserService, 
     }); //End sweet alert post route
   } //End selectHouse
 
-vm.createHouse = function(ev) {
-  $mdDialog.show({
-    controller: DialogController,
-    templateUrl: '/views/dialogs/dialog.addHouse.html',
-    targetEvent: ev,
-    clickOutsideToClose: true
-  })
+  vm.createHouse = function (ev) {
+    $mdDialog.show({
+      templateUrl: '/views/dialogs/dialog.addHouse.html',
+      controller: 'DialogController as dc',
+      targetEvent: ev,
+      clickOutsideToClose: false
+    })
 };
 
 
-
-
-
-
-
 }); //End userController
-
-  // vm.joinHouse = function(enteredHouseCode, selectedHouse) {
-  //   console.log('in join house', enteredHouseCode, ',', selectedHouse);
-  //   vm.houseService.addMember(enteredHouseCode, selectedHouse).then(function(response) {
-  //     if (response.status === 401) {
-  //       swal('uh oh!');
-  //     }
-  //     console.log('response from server', response.status);
-  //   })
-

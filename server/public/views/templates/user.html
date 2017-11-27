@@ -15,7 +15,7 @@
         <button ng-click="uc.selectHouse(uc.selectedHouse)">Select house</button> 
         <br>
         <br>
-        <button ng-click ="uc.createHouse()">Create a new house</button> <!--ng-click: if there is a way to do this, set up a sweet alert that will pop up and allow the user to enter inputs about a new house and create the new house in a pop-up on the screen, instead of completely redirecting them --> 
+        <button ng-click ="uc.createHouse($event)">Create a new house</button>
         <br>
         <br>
     <button class="btn btn-default" ng-click="uc.userService.logout()">Log Out</button>

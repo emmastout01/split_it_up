@@ -6,8 +6,11 @@ myApp.controller('TransactionController', function($routeParams, UserService, Tr
     vm.houseService = HouseService;
 
     vm.transactionList = '';
-    vm.house = {
-        id: vm.houseService.houseId.id
+    vm.currentHouse = {
+        id: vm.houseService.currentHouse.id,
+        name: vm.houseService.currentHouse.name,
+        rent: vm.houseService.currentHouse.rent,
+        closeOutDate: vm.houseService.currentHouse.closeOutDate
     }
 
     vm.getTransactions = function() {

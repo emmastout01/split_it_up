@@ -2,12 +2,18 @@ myApp.service('HouseService', function($routeParams, $http, $location, UserServi
     console.log('HouseService Loaded');
     var self = this;
 
-    self.houseId = {
-        id: ''
+    self.currentHouse = {
+        id: '',
+        name: '',
+        rent: '',
+        closeOutDate: ''
     }
 
     self.getHouseId = function(userHouse) {
-        self.houseId.id = userHouse.id;
+        self.currentHouse.id = userHouse.id;
+        self.currentHouse.name = userHouse.houseName;
+        self.currentHouse.rent = userHouse.totalRent;
+        self.currentHouse.closeOutDate = userHouse.closeOutDate;
     }
 
     console.log('route params', $routeParams.id);
@@ -37,10 +43,10 @@ myApp.service('HouseService', function($routeParams, $http, $location, UserServi
         })
     }
 
-    self.getHouseId = function(userHouse) {
-        self.houseId.id = userHouse.id;
-        console.log('house service house id', self.houseId.id);
-    }
+    // self.getHouseId = function(userHouse) {
+    //     self.houseId.id = userHouse.id;
+    //     console.log('house service house id', self.houseId.id);
+    // }
 
     self.removeHouse = function(userHouse) {
         return $http.delete('/member/' + userHouse).then(function(response) {
