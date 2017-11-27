@@ -9,6 +9,7 @@ myApp.service('HouseService', function($routeParams, $http, $location, UserServi
         closeOutDate: ''
     }
 
+
     self.getCurrentHouse = function(houseId) {
         return $http.get('/currentHouse/' + houseId).then(function(response) {
             console.log('got current house', response);
@@ -77,7 +78,7 @@ myApp.service('HouseService', function($routeParams, $http, $location, UserServi
            selectedHouse: selectedHouse,
            userId: UserService.userObject.userId
         }
-        console.log(memberToSend);
+        console.log('member to send', memberToSend, memberToSend.userId);
         return $http.post('/member', memberToSend).then(function(response) {
             console.log('new member post', response)
             self.getHouses();

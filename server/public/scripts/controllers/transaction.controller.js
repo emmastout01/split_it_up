@@ -4,7 +4,8 @@ myApp.controller('TransactionController', function($routeParams, UserService, Tr
     vm.userService = UserService;
     vm.transactionService = TransactionService;
     vm.houseService = HouseService;
-
+    
+    vm.houseId = $routeParams.id
     vm.transactionList = '';
     vm.currentHouse = {
         id: vm.houseService.currentHouse.id,
@@ -12,6 +13,21 @@ myApp.controller('TransactionController', function($routeParams, UserService, Tr
         rent: vm.houseService.currentHouse.rent,
         closeOutDate: vm.houseService.currentHouse.closeOutDate
     }
+       
+      vm.getCurrentHouse = function(houseId) {
+        vm.houseService.getCurrentHouse(houseId).then(function(response) {
+          console.log('we are in house', response.data[0]);
+          vm.currentHouse = {
+            id: response.data[0].id,
+            name: response.data[0].houseName,
+            rent: response.data[0].totalRent,
+            closeOutDate: response.data[0].closeOutDate
+        }
+        }) 
+      }
+
+      vm.getCurrentHouse(vm.houseId);
+    
 
     vm.getTransactions = function() {
         vm.transactionService.getTransactions().then(function(response) {
