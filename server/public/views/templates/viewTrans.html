@@ -25,10 +25,10 @@
       <tbody md-body>
         <!-- <tr md-row md-select="dessert" md-select-id="name" md-auto-select ng-repeat="dessert in desserts.data"> -->
         <tr md-row md-select="transaction" md-select-id="name" md-auto-select ng-repeat="transaction in tc.transactions">
-          <td md-cell>{{transaction.user_id}}</td>
-          <td md-cell>{{transaction.amount}}</td>
-          <td md-cell>{{transaction.category}}</td>
+          <td md-cell>{{transaction.username}}</td>
           <td md-cell>{{transaction.date}}</td>
+          <td md-cell>{{transaction.amount | currency}}</td>
+          <td md-cell>{{transaction.categoryName}}</td>
           <td md-cell>{{transaction.notes}}</td>
           <td md-cell>{{transaction.viewReceipt}}</td>
         </tr>

@@ -38,7 +38,7 @@ router.get('/:id', function (req, res) {
                 res.sendStatus(500);
             }
             else {
-                var queryText = 'SELECT * FROM "transactions" WHERE "house_id" = $1'
+                var queryText = 'SELECT "transactions".*, "categories"."categoryName", "users"."username" FROM "transactions" JOIN "categories" ON "categories"."id" = "transactions"."category_id" JOIN "users" ON "users"."id" = "transactions"."user_id" WHERE "transactions"."house_id" = $1'
                 db.query(queryText, [houseId], function (errorMakingQuery, result) {
                     done();
                     if (errorMakingQuery) {
