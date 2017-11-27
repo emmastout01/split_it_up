@@ -6,6 +6,7 @@ myApp.controller('DialogController', function($mdDialog, HouseService, UserServi
     vm.userObject = UserService.userObject;
     vm.transactionService = TransactionService;
 
+
     // House dialog on user home page
     
     //Add house on submit click

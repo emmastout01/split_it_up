@@ -29,19 +29,14 @@ myApp.controller('TransactionController', function($routeParams, UserService, Tr
       vm.getCurrentHouse(vm.houseId);
     
 
-    vm.getTransactions = function() {
-        vm.transactionService.getTransactions().then(function(response) {
+    vm.getTransactions = function(houseId) {
+        vm.transactionService.getTransactions(houseId).then(function(response) {
             vm.transactionList = response.data;
             console.log('transactions in controller', vm.transactionList);
         })
-        // }).then(function() {
-        //     vm.house.amount = vm.transactionService.totalAmount(vm.houseService.houseId.id, vm.transactionList);
-        //     console.log('amount', vm.house.amount);
-        // })
     }
 
-
-    vm.getTransactions();
+    vm.getTransactions(vm.houseId);
   
   
     

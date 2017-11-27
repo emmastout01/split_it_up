@@ -29,7 +29,8 @@ router.post('/', function (req, res) {
 }); //end of post
 
 // Handles transaction GET request
-router.get('/', function (req, res) {
+router.get('/:id', function (req, res) {
+    var houseId = req.params.id;
     if (req.isAuthenticated) {
         pool.connect(function (err, db, done) {
             if (err) {
@@ -37,8 +38,8 @@ router.get('/', function (req, res) {
                 res.sendStatus(500);
             }
             else {
-                var queryText = 'SELECT * FROM "transactions"'
-                db.query(queryText, function (errorMakingQuery, result) {
+                var queryText = 'SELECT * FROM "transactions" WHERE "house_id" = $1'
+                db.query(queryText, [houseId], function (errorMakingQuery, result) {
                     done();
                     if (errorMakingQuery) {
                         console.log('error making query', errorMakingQuery);

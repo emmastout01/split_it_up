@@ -34,7 +34,6 @@ router.get('/:id', function (req, res) {
                                 memberOfHouse = true;
                             } 
                         }
-
                         //If user is a member of the house they want to access, run the GET request that will send back house data.
                         if (memberOfHouse) {
                             var queryText = 'SELECT * FROM "houses" WHERE "id" = $1'

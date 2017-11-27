@@ -28,8 +28,8 @@ myApp.service('TransactionService', function($http, $routeParams, $location, Use
     }
     
 
-    self.getTransactions = function() {
-        return $http.get('/transaction').then(function(response) {
+    self.getTransactions = function(houseId) {
+        return $http.get('/transaction/' + houseId).then(function(response) {
             console.log('got transactions', response);
             self.transactionList.trans = response.data;
             return response;
