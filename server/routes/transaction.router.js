@@ -5,7 +5,7 @@ var pool = require('../modules/pool.js');
 
 // Handles POST request with new transaction
 router.post('/', function (req, res) {
-    if (req.isAuthenticated) {
+    if (req.isAuthenticated()) {
         var newTrans = req.body;
         pool.connect(function (err, db, done) {
             if (err) {
@@ -13,14 +13,25 @@ router.post('/', function (req, res) {
                 res.sendStatus(500);
             }
             else {
-                var queryText = 'INSERT INTO "transactions" ("user_id", "house_id", "date", "amount", "category_id", "notes", "viewReceipt") VALUES ($1, $2, $3, $4, $5, $6, $7);'
-                db.query(queryText, [newTrans.userId, newTrans.houseId, newTrans.date, newTrans.amount, newTrans.category, newTrans.notes, newTrans.photo], function (errorMakingQuery, result) {
+                var queryText = 'SELECT "id" FROM "categories" WHERE "categoryName" = $1;' 
+                db.query(queryText, [newTrans.category], function (errorMakingQuery, result) {
                     done();
                     if (errorMakingQuery) {
                         console.log('error making query', errorMakingQuery);
                         res.sendStatus(500);
                     } else {
-                        res.sendStatus(201);
+                        var category_id = result.rows[0].id;
+                        console.log('result', result, 'category id', category_id);
+                        var queryText =  'INSERT INTO "transactions" ("user_id", "house_id", "date", "amount", "category_id", "notes", "viewReceipt") VALUES ($1, $2, $3, $4, $5, $6, $7);'
+                        db.query(queryText, [newTrans.userId, newTrans.houseId, newTrans.date, newTrans.amount, category_id, newTrans.notes, newTrans.photo], function (errorMakingQuery, result) {
+                            done();
+                            if (errorMakingQuery) {
+                                console.log('error making query', errorMakingQuery);
+                                res.sendStatus(500);
+                            } else {
+                                res.sendStatus(201);
+                            }
+                        });
                     }
                 });
             }
@@ -31,7 +42,7 @@ router.post('/', function (req, res) {
 // Handles transaction GET request
 router.get('/:id', function (req, res) {
     var houseId = req.params.id;
-    if (req.isAuthenticated) {
+    if (req.isAuthenticated()) {
         pool.connect(function (err, db, done) {
             if (err) {
                 console.log("Error connecting: ", err);

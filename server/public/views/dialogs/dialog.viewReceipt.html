@@ -1,0 +1,24 @@
+<md-dialog aria-label="Add Transaction form">
+        <form ng-cloak>
+          <md-toolbar>
+            <div class="md-toolbar-tools">
+              <h2>Receipt</h2>
+            </div>
+            <!-- Add a cancel button at top (X in top right corner) -->
+          </md-toolbar>
+      
+          <!-- Photo -->
+          <md-dialog-content>
+              <img src="{{dc.photo}}"
+          </md-dialog-content>
+      
+          <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button ng-click="dc.addTransaction(dc.newTransaction)">Add Transaction
+            </md-button>
+            <md-button ng-click="dc.cancel()">Cancel
+                </md-button>
+          </md-dialog-actions>
+        </form>
+      </md-dialog>
+      

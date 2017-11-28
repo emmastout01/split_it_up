@@ -1,4 +1,4 @@
-myApp.controller('TransactionController', function($routeParams, UserService, TransactionService, HouseService) {
+myApp.controller('TransactionController', function($routeParams, $mdDialog, UserService, TransactionService, HouseService) {
     console.log('TransactionController created');
     var vm = this;
     vm.userService = UserService;
@@ -32,12 +32,18 @@ myApp.controller('TransactionController', function($routeParams, UserService, Tr
 
     
     //Get transactions for the house
+
     vm.getTransactions = function(houseId) {
+        console.log('in get transactions');
         vm.transactionService.getTransactions(houseId).then(function(response) {
             vm.transactions = response.data;
             for (var i=0; i < vm.transactions.length; i++) {
               vm.transactions[i].date = moment(vm.transactions[i].date).format('MMM Do')
               console.log(vm.transactions[i].date);
+              // if (vm.transactions[i].viewReceipt !== null) {
+              //   vm.showViewReceipt.show = true;
+              // }
+              // console.log('show receipt for ', vm.transactions[i], ':', vm.showViewReceipt);
             }
             console.log('transactions in controller', vm.transactions);
         })
@@ -53,5 +59,31 @@ myApp.controller('TransactionController', function($routeParams, UserService, Tr
       limit: 5,
       page: 1
     };
+
+
+    //If there is a receipt to show, show the "view receipt" button. Otherwise do not show the button.
+    vm.showViewReceipt = function(transaction) {
+      if(transaction.viewReceipt !== null) {
+        return true;
+      }
+      return false;
+    }
+
+    //When "view receipt" button is clicked, open a dialog with a photo of the receipt. 
+    vm.thisTransactionPhoto = {
+      photo:'empty'
+    };
+    
+    vm.viewReceipt = function (ev, transaction) {
+      vm.thisTransactionPhoto.photo = transaction.viewReceipt;
+      console.log(vm.thisTransactionPhoto.photo);
+      $mdDialog.show({
+        templateUrl: '/views/dialogs/dialog.viewReceipt.html',
+        controller: 'DialogController as dc',
+        targetEvent: ev,
+        clickOutsideToClose: true,
+        locals: { photo: vm.thisTransactionPhoto.photo}
+      })
+  };
     
 });

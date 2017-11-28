@@ -6,7 +6,7 @@ var pool = require('../modules/pool.js');
 
 // Handles GET request with user houses
 router.get('/', function (req, res) {
-    if (req.isAuthenticated) {
+    if (req.isAuthenticated()) {
         var userId = req.user.id;
         pool.connect(function (err, houses, done) {
             if (err) {

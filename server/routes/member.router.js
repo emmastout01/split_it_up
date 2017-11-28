@@ -76,7 +76,7 @@ router.post('/', function (req, res) {
 
 //delete member from house
 router.delete('/:id', function (req, res) {
-    if (req.isAuthenticated) {
+    if (req.isAuthenticated()) {
         var houseId = req.params.id;
         var userId = req.user.id;
         console.log('house id', houseId, 'user id', userId);

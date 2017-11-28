@@ -1,4 +1,4 @@
-myApp.controller('DialogController', function ($mdDialog, HouseService, UserService, TransactionService) {
+myApp.controller('DialogController', function ($mdDialog, HouseService, UserService, TransactionService, photo) {
     console.log('DialogController created');
     var vm = this;
     vm.houseService = HouseService;
@@ -8,9 +8,35 @@ myApp.controller('DialogController', function ($mdDialog, HouseService, UserServ
 
     vm.categories = [];
 
+    //Filestack for add transaction dialog 
+    vm.apikey = 'AuSmv6aEsT2acrLuuw0HRz';
+    vm.filestackClient = filestack.init(vm.apikey);
+
+    vm.response = {img:''}; 
+
+    vm.openPicker = function() {
+      vm.filestackClient.pick({
+        fromSources:["local_file_system","dropbox", "url", "imagesearch"],
+        accept:["image/*"]
+      }).then(function(response) {
+        // declare this function to handle response
+        handleFilestack(response);
+      });
+    };
+  
+    function handleFilestack(response) {
+      console.log(response.filesUploaded[0]);
+      vm.response.img = response.filesUploaded[0].url;
+      console.log(vm.response);
+      swal('woohoo!', 'we\'ve got your image!', 'success');
+    }
+
+
     // House dialog on user home page
 
     //Add house on submit click
+
+
     vm.addHouse = function (newHouse) {
         console.log('adding house');
         vm.houseService.addHouse(newHouse).then(function () {
@@ -26,8 +52,15 @@ myApp.controller('DialogController', function ($mdDialog, HouseService, UserServ
 
     //Add transaction dialog on add transaction page
     vm.addTransaction = function (newTransaction) {
+        var transactionToAdd = {
+            date: newTransaction.date,
+            amount: newTransaction.amount,
+            category: newTransaction.category,
+            notes: newTransaction.notes,
+            photo: vm.response.img
+        }
         console.log('adding transaction');
-        vm.transactionService.addTransaction(newTransaction).then(function () {
+        vm.transactionService.addTransaction(transactionToAdd).then(function () {
             $mdDialog.hide()
         })
     }
@@ -41,6 +74,8 @@ myApp.controller('DialogController', function ($mdDialog, HouseService, UserServ
     }
 
     vm.getCategories();
+
+    vm.photo = photo;
 
     //Date Picker
 

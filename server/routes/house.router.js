@@ -6,7 +6,7 @@ var pool = require('../modules/pool.js');
 
 // Handles POST request with new house
 router.post('/', function (req, res) {
-    if (req.isAuthenticated) {
+    if (req.isAuthenticated()) {
         var newHouse = req.body;
         pool.connect(function (err, houses, done) {
             if (err) {
@@ -31,7 +31,7 @@ router.post('/', function (req, res) {
 
 // Handles GET request with new house
 router.get('/', function (req, res) {
-    if (req.isAuthenticated) {
+    if (req.isAuthenticated()) {
         pool.connect(function (err, houses, done) {
             if (err) {
                 console.log("Error connecting: ", err);
