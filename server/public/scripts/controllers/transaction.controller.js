@@ -34,12 +34,10 @@ myApp.controller('TransactionController', function($routeParams, $mdDialog, User
     //Get transactions for the house
 
     vm.getTransactions = function(houseId) {
-        console.log('in get transactions');
         vm.transactionService.getTransactions(houseId).then(function(response) {
             vm.transactions = response.data;
             for (var i=0; i < vm.transactions.length; i++) {
               vm.transactions[i].date = moment(vm.transactions[i].date).format('MMM Do')
-              console.log(vm.transactions[i].date);
               // if (vm.transactions[i].viewReceipt !== null) {
               //   vm.showViewReceipt.show = true;
               // }
@@ -76,10 +74,9 @@ myApp.controller('TransactionController', function($routeParams, $mdDialog, User
     
     vm.viewReceipt = function (ev, transaction) {
       vm.thisTransactionPhoto.photo = transaction.viewReceipt;
-      console.log(vm.thisTransactionPhoto.photo);
       $mdDialog.show({
         templateUrl: '/views/dialogs/dialog.viewReceipt.html',
-        controller: 'DialogController as dc',
+        controller: 'ReceiptDialogController as dc',
         targetEvent: ev,
         clickOutsideToClose: true,
         locals: { photo: vm.thisTransactionPhoto.photo}

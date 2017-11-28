@@ -6,15 +6,6 @@ myApp.controller('HouseController', function(HouseService, $mdDialog, $routePara
     vm.houseId = $routeParams.id;
     console.log('house  id in house home controller', vm.houseId);
 
-    //Here: I think instead of pulling from the house service (although maybe that's already enough?), I could instead use the $routeParams id as a parameter or something for a request to the database--get everything for the house whose id is $routeParams.id, and then the data sent back would be name, rent, closeOutDate.
-
-  //   vm.currentHouse = {
-  //     id: vm.houseService.currentHouse.id,
-  //     name: vm.houseService.currentHouse.name,
-  //     rent: vm.houseService.currentHouse.rent,
-  //     closeOutDate: vm.houseService.currentHouse.closeOutDate
-  // }
-
   vm.currentHouse = {
     id: vm.houseService.currentHouse.id,
     name: vm.houseService.currentHouse.name,
@@ -31,8 +22,7 @@ myApp.controller('HouseController', function(HouseService, $mdDialog, $routePara
         rent: response.data[0].totalRent,
         closeOutDate: response.data[0].closeOutDate
     }
-    })
-    
+    }) 
   }
 
   vm.getCurrentHouse(vm.houseId);

@@ -78,3 +78,9 @@ li a:hover {
   text-decoration: underline;
   color: #eee;
 }
+
+#receiptPhoto {
+  width: 400px;
+  height: auto;
+
+}

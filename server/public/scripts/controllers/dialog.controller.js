@@ -1,4 +1,4 @@
-myApp.controller('DialogController', function ($mdDialog, HouseService, UserService, TransactionService, photo) {
+myApp.controller('DialogController', function ($routeParams, $mdDialog, HouseService, UserService, TransactionService) {
     console.log('DialogController created');
     var vm = this;
     vm.houseService = HouseService;
@@ -7,6 +7,73 @@ myApp.controller('DialogController', function ($mdDialog, HouseService, UserServ
     vm.transactionService = TransactionService;
 
     vm.categories = [];
+
+    vm.houseId = $routeParams.id;
+    vm.currentHouse = {};
+
+    vm.closeOutDate; 
+
+    vm.number = {
+        number:2
+    }
+    vm.secondNumber = {
+        number: 2
+    }
+       
+      vm.getCurrentHouse = function(houseId) {
+        vm.houseService.getCurrentHouse(houseId).then(function(response) {
+          console.log('we are in house', response.data[0]);
+          vm.currentHouse = {
+            id: response.data[0].id,
+            name: response.data[0].houseName,
+            rent: response.data[0].totalRent,
+            closeOutDate: response.data[0].closeOutDate
+        }
+        return vm.currentHouse;
+        }).then(function() {
+            console.log('close out date in dc', vm.currentHouse);
+            vm.number.number = vm.currentHouse.closeOutDate;
+            vm.secondNumber.number = vm.currentHouse.closeOutDate - 1;
+            vm.minDate = new Date(
+                vm.myDate.getFullYear(),
+                vm.myDate.getMonth(),
+                -vm.number.number
+            );
+        
+            vm.maxDate = new Date(
+                vm.myDate.getFullYear(),
+                vm.myDate.getMonth() + 1,
+                -vm.secondNumber.number
+            );
+        }) 
+    }
+  
+
+    vm.getCurrentHouse(vm.houseId);
+
+
+    vm.myDate = new Date();
+    
+        vm.minDate = new Date(
+            vm.myDate.getFullYear(),
+            vm.myDate.getMonth(),
+            -vm.number.number
+        );
+    
+        vm.maxDate = new Date(
+            vm.myDate.getFullYear(),
+            vm.myDate.getMonth() + 1,
+            -vm.secondNumber.number
+        );
+    
+    
+        // Cancels a dialog box
+        vm.cancel = function () {
+            $mdDialog.cancel();
+        };
+    
+
+///When I come back: need to be able to access the close out date for the current house in order to change the calendar on add transaction dialog
 
     //Filestack for add transaction dialog 
     vm.apikey = 'AuSmv6aEsT2acrLuuw0HRz';
@@ -75,38 +142,9 @@ myApp.controller('DialogController', function ($mdDialog, HouseService, UserServ
 
     vm.getCategories();
 
-    vm.photo = photo;
-
     //Date Picker
 
     //Stand in numbers for date picker : will be changed to the user-entered close-out info
-    var number = 2;
-    var secondNumber = 3;
-
-    vm.myDate = new Date();
-
-    vm.minDate = new Date(
-        vm.myDate.getFullYear(),
-        vm.myDate.getMonth(),
-        -number
-    );
-
-    vm.maxDate = new Date(
-        vm.myDate.getFullYear(),
-        vm.myDate.getMonth() + 1,
-        -secondNumber
-    );
-
-
-    // Cancels a dialog box
-    vm.cancel = function () {
-        $mdDialog.cancel();
-    };
-
-
-
-
-
-
+   
 
 });
