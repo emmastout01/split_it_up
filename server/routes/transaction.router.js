@@ -100,5 +100,30 @@ router.put('/:id', function (req, res) {
     } // end req.isAuthenticated
 }); //end of put
 
+//DELETE route
+router.delete('/:id', function (req, res) {
+    var transactionId = req.params.id;
+    if (req.isAuthenticated()) {
+        pool.connect(function (err, db, done) {
+            if (err) {
+                console.log("Error connecting: ", err);
+                res.sendStatus(500);
+            }
+            else {
+                var queryText = 'DELETE FROM "transactions" WHERE "transactions"."id" = $1'
+                db.query(queryText, [transactionId], function (errorMakingQuery, result) {
+                    done();
+                    if (errorMakingQuery) {
+                        console.log('error making query', errorMakingQuery);
+                        res.sendStatus(500);
+                    } else {
+                        res.send(result.rows);
+                    }
+                });
+            }
+        }); //end of pool
+    } // end req.isAuthenticated
+}); //end of delete route
+
 
 module.exports = router;

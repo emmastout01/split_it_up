@@ -55,6 +55,14 @@ myApp.service('TransactionService', function($http, $routeParams, $location, Use
         })
     }
 
+    self.deleteTransaction = function(transactionId) {
+        return $http.delete('/transaction/' + transactionId).then(function(response) {
+            console.log('transaction deleted!', response)
+            return response;
+        }).catch(function(err) {
+            console.log('transaction delete didn\'t work', err);
+        })
+    }
 
 
 });

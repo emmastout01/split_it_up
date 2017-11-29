@@ -34,7 +34,7 @@
           <td md-cell>{{transaction.notes}}</td>
           <td md-cell><md-button class="md-accent md-raised" ng-show="tc.showViewReceipt(transaction)" ng-click="tc.viewReceipt($event, transaction)">View Receipt</button></td>
           <td md-cell><md-button class="md-accent md-raised" ng-click="tc.editTransaction($event, transaction)">Edit</button></td>
-          <td md-cell><md-button class="md-accent md-raised" ng-click="tc.deleteTransaction(transaction)">Delete</button></td>
+          <td md-cell><md-button class="md-accent md-raised" ng-click="tc.deleteTransaction(transaction.id)">Delete</button></td>
         </tr>
       </tbody>
     </table>

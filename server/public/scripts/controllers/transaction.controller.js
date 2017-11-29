@@ -40,7 +40,6 @@ myApp.controller('TransactionController', function ($routeParams, $mdDialog, Use
         vm.transactions[i].date = moment(vm.transactions[i].date).format('L')
       }
       console.log('transactions in controller', vm.transactions);
-      console.log('transaction id', vm.transactions[4].id);
     })
   }
 
@@ -62,13 +61,10 @@ myApp.controller('TransactionController', function ($routeParams, $mdDialog, Use
 
   //Delete transactions
 
-  vm.DeleteTransaction = function (transaction) {
-    vm.transactionService.getTransactions(houseId).then(function (response) {
-      vm.transactions = response.data;
-      for (var i = 0; i < vm.transactions.length; i++) {
-        vm.transactions[i].date = moment(vm.transactions[i].date).format('MMM Do')
-      }
-      console.log('transactions in controller', vm.transactions);
+  vm.deleteTransaction = function (transactionId) {
+    console.log('delete');
+    vm.transactionService.deleteTransaction(transactionId).then(function (response) {
+      vm.getTransactions(vm.houseId);
     })
   }
 
