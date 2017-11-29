@@ -64,6 +64,41 @@ router.get('/:id', function (req, res) {
     } // end req.isAuthenticated
 }); //end of get route
 
+//Handles transaction PUT request
+router.put('/:id', function (req, res) {
+    if (req.isAuthenticated()) {
+        var transaction = req.body;
+        var transactionId = req.params.id; 
+        pool.connect(function (err, db, done) {
+            if (err) {
+                console.log("Error connecting: ", err);
+                res.sendStatus(500);
+            }
+            else {
+                var queryText = 'SELECT "id" FROM "categories" WHERE "categoryName" = $1;' 
+                db.query(queryText, [transaction.category], function (errorMakingQuery, result) {
+                    done();
+                    if (errorMakingQuery) {
+                        console.log('error making query', errorMakingQuery);
+                        res.sendStatus(500);
+                    } else {
+                        var category_id = result.rows[0].id;
+                        var queryText = 'UPDATE "transactions" SET "amount" = $1, "category_id" = $2, "date" = $3, "notes"= $4, "viewReceipt"=$5 WHERE "id" = $6;'
+                        db.query(queryText, [transaction.amount, category_id, transaction.date, transaction.notes, transaction.photo, transactionId], function (errorMakingQuery, result) {
+                            done();
+                            if (errorMakingQuery) {
+                                console.log('error making query', errorMakingQuery);
+                                res.sendStatus(500);
+                            } else {
+                                res.sendStatus(201);
+                            }
+                        });
+                    }
+                });
+            }
+        }); //end of pool
+    } // end req.isAuthenticated
+}); //end of put
 
 
 module.exports = router;

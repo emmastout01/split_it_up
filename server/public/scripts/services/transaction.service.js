@@ -45,6 +45,16 @@ myApp.service('TransactionService', function($http, $routeParams, $location, Use
         })
     }
 
+    self.editTransaction = function(transaction) {
+        console.log('sending transaction', transaction);
+        return $http.put('/transaction/' + transaction.id, transaction).then(function(response) {
+            console.log('new transaction update', response)
+            return response;
+        }).catch(function(err) {
+            console.log('transaction update didn\'t work', err);
+        })
+    }
+
 
 
 });

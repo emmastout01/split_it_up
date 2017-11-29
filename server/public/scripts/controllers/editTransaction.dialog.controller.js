@@ -1,28 +1,40 @@
-myApp.controller('DialogController', function ($routeParams, $mdDialog, HouseService, UserService, TransactionService) {
-    console.log('DialogController created');
+myApp.controller('EditDialogController', function ($routeParams, $mdDialog, HouseService, TransactionService, transaction) {
+    console.log('EditDialogController created');
     var vm = this;
     vm.houseService = HouseService;
-    vm.userService = UserService;
-    vm.userObject = UserService.userObject;
     vm.transactionService = TransactionService;
 
     vm.categories = [];
+    vm.myDate = new Date();
 
     vm.houseId = $routeParams.id;
     vm.currentHouse = {};
-
-    vm.closeOutDate; 
-
     vm.number = {
         number:2
     }
     vm.secondNumber = {
         number: 2
     }
+
+    console.log('transaction date', transaction.date);
+
+    vm.transaction = {
+        id: parseInt(transaction.id),
+        user_id: transaction.user_id,
+        house_id: transaction.house_id,
+        amount: parseFloat(transaction.amount),
+        date: moment(transaction.date).format('L'),
+        category_id: transaction.category_id,
+        notes: transaction.notes,
+        viewReceipt: transaction.viewReceipt
+    }
+
+    
+
+    console.log('transaction', vm.transaction);
        
       vm.getCurrentHouse = function(houseId) {
         vm.houseService.getCurrentHouse(houseId).then(function(response) {
-          console.log('we are in house', response.data[0]);
           vm.currentHouse = {
             id: response.data[0].id,
             name: response.data[0].houseName,
@@ -31,7 +43,6 @@ myApp.controller('DialogController', function ($routeParams, $mdDialog, HouseSer
         }
         return vm.currentHouse;
         }).then(function() {
-            console.log('close out date in dc', vm.currentHouse);
             vm.number.number = vm.currentHouse.closeOutDate;
             vm.secondNumber.number = vm.currentHouse.closeOutDate - 1;
             vm.minDate = new Date(
@@ -39,7 +50,6 @@ myApp.controller('DialogController', function ($routeParams, $mdDialog, HouseSer
                 vm.myDate.getMonth(),
                 -vm.number.number
             );
-        
             vm.maxDate = new Date(
                 vm.myDate.getFullYear(),
                 vm.myDate.getMonth() + 1,
@@ -47,25 +57,8 @@ myApp.controller('DialogController', function ($routeParams, $mdDialog, HouseSer
             );
         }) 
     }
-  
 
     vm.getCurrentHouse(vm.houseId);
-
-
-    vm.myDate = new Date();
-    
-        // vm.minDate = new Date(
-        //     vm.myDate.getFullYear(),
-        //     vm.myDate.getMonth(),
-        //     -vm.number.number
-        // );
-    
-        // vm.maxDate = new Date(
-        //     vm.myDate.getFullYear(),
-        //     vm.myDate.getMonth() + 1,
-        //     -vm.secondNumber.number
-        // );
-    
     
         // Cancels a dialog box
         vm.cancel = function () {
@@ -103,35 +96,6 @@ myApp.controller('DialogController', function ($routeParams, $mdDialog, HouseSer
 
     //Add house on submit click
 
-
-    vm.addHouse = function (newHouse) {
-        console.log('adding house');
-        vm.houseService.addHouse(newHouse).then(function () {
-            $mdDialog.hide()
-        }).then(function () {
-            vm.houseService.getHouses();
-        })
-    }
-
-    //Numbers for close out dates on addHouse form
-    vm.numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-
-
-    //Add transaction dialog on add transaction page
-    vm.addTransaction = function (newTransaction) {
-        var transactionToAdd = {
-            date: newTransaction.date,
-            amount: newTransaction.amount,
-            category: newTransaction.category,
-            notes: newTransaction.notes,
-            photo: vm.response.img
-        }
-        console.log('adding transaction');
-        vm.transactionService.addTransaction(transactionToAdd).then(function () {
-            $mdDialog.hide()
-        })
-    }
-
     //Get request for all categories
     vm.getCategories = function() {
         vm.transactionService.getCategories().then(function (response) {
@@ -142,8 +106,11 @@ myApp.controller('DialogController', function ($routeParams, $mdDialog, HouseSer
 
     vm.getCategories();
 
-    vm.getTransactionToEdit = function() {
-        
+    vm.editTransaction = function(transaction, houseId) {
+        console.log('transaction being edited', transaction);
+        vm.transactionService.editTransaction(transaction).then(function(response) {
+            vm.transactionService.getTransactions(houseId);
+        })
     }
 
 });

@@ -1,0 +1,36 @@
+<md-dialog aria-label="Edit Transaction form">
+        <form ng-cloak>
+          <md-toolbar>
+            <div class="md-toolbar-tools">
+              <h2>Editing Transaction for {{ec.userObject.userName}}</h2>
+            </div>
+          </md-toolbar>
+      
+          <!-- Amount, category, date, notes, upload photo of receipt -->
+          <md-dialog-content>
+            <div class="md-dialog-content">
+              <form>
+                 <strong>Amount: </strong>  $<input type="number" min="0.01" step="0.01" max="2500" ng-model="ec.transaction.amount" placeholder='Amount' />
+                 <br> <br>
+                 <!-- <strong>Category: </strong><input type="text" ng-model="ec.newTransaction.category" placeholder='Category' /> <br> <br> -->
+                 <strong>Category: </strong>  <select md-placeholder = "test" ng-model="ec.transaction.category">
+                    <option md-placeholder = "test" ng-repeat = "category in ec.categories">{{category.categoryName}}</option>
+                </select> <br> <br>
+                 <strong>Date: </strong>  <md-datepicker ng-model="ec.transaction.date" md-placeholder="Date"
+                     md-min-date="ec.minDate" md-max-date="ec.maxDate"></md-datepicker> <br> <br>
+                 <strong>Notes: </strong>  <textarea cols="30" rows="10" ng-model="ec.transaction.notes">{{ec.transaction.notes}}</textarea>
+                 <button ng-click="ec.openPicker()">Upload Photo of Receipt</button>
+                 <!-- <strong>Upload Photo of receipt: </strong> <input type="text" ng-model="ec.newTransaction.photo" placeholder="Not working yet" /> <br> <br> -->
+                  </form>
+            </div>
+          </md-dialog-content>
+      
+          <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button ng-click="ec.editTransaction(ec.transaction, ec.transaction.house_id)">Save
+            </md-button>
+            <md-button ng-click="ec.cancel()">Cancel
+                </md-button>
+          </md-dialog-actions>
+        </form>
+      </md-dialog>
