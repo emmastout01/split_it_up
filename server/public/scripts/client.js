@@ -22,15 +22,6 @@ myApp.config(function($routeProvider, $locationProvider) {
         }
       }
     })
-    .when('/info', {
-      templateUrl: '/views/templates/info.html',
-      controller: 'InfoController as ic',
-      resolve: {
-        getuser : function(UserService){
-          return UserService.getuser();
-        }
-      }
-    })
     .when('/houseHome/:id', {
       templateUrl: '/views/templates/houseHome.html',
       controller: 'HouseController as hc',
@@ -58,7 +49,7 @@ myApp.config(function($routeProvider, $locationProvider) {
         }
       }
     })
-    // .otherwise({
-    //   redirectTo: 'home'
-    // });
+    .otherwise({
+      redirectTo: 'home'
+    });
 });

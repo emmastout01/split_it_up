@@ -1,5 +1,5 @@
 <div ng-include="'views/partials/houseNav.html'"></div>
-<div class="container">
+<div id="templateContainer" class="container">
     <h1>Welcome to {{hc.currentHouse.name}}!</h1>
     <br>
     <button ng-click="hc.addTransaction($event)">Add New Transaction!</button>
@@ -23,7 +23,7 @@
     
     <span><h2>Total cost: {{hc.totalCost | currency}}</h2></span>
 
-
+<br><br><br><br><br><br><br><br><br><br>
 
     <span><h2>Total cost per person: {{hc.costPerPerson | currency}}</h2></span>
 

@@ -8,7 +8,7 @@ myApp.controller('HouseController', function (TransactionService, MemberService,
   vm.houseId = $routeParams.id;
   vm.currentHouse = '';
   vm.members = '';
-  vm.transactionsForMonth = '';
+  vm.transactionsForMonth = [];
   vm.minDateNumber = '';
   vm.maxDateNumber = '';
   vm.minDate = '';
@@ -29,9 +29,11 @@ myApp.controller('HouseController', function (TransactionService, MemberService,
       vm.getUtilCost(vm.transactionsForMonth);
       vm.getFoodCost(vm.transactionsForMonth);
       vm.getOtherCost(vm.transactionsForMonth);
+      vm.getMembers(vm.houseId);
     }).then(function () {
       vm.totalCost = vm.utilCost + vm.foodCost + vm.otherCost + vm.currentHouse.rent;
-      vm.costPerPerson = vm.totalCost / vm.members.length;
+      console.log('vm. members', vm.members.length);
+      
     })
   }
 
@@ -81,6 +83,7 @@ myApp.controller('HouseController', function (TransactionService, MemberService,
     var result = 0;
     for (var i = 0; i < transactions.length; i++) {
       if (transactions[i].category_id === 2 || 3 || 4 || 5 || 6) {
+        console.log('getting this util cost', transactions[i].category_id);
         result += parseFloat(transactions[i].amount);
       }
     }
@@ -115,15 +118,36 @@ myApp.controller('HouseController', function (TransactionService, MemberService,
   vm.getMembers = function (houseId) {
     vm.memberService.getMembers(houseId).then(function (response) {
       vm.members = response.data;
-      for (var i=0; i < vm.members.length; i++) {
-        vm.members[i].alreadyPaid = 0;
-        vm.members[i].stillOwes = 0;
-      }
+      vm.costPerPerson = vm.totalCost / vm.members.length;
+      findAlreadyPaid(vm.members);
+      findStillOwes(vm.members);
       console.log('vm.members', vm.members);
     })
   }
-  vm.getMembers(vm.houseId);
 
+  function findAlreadyPaid(members) {
+    var transactions = vm.transactionsForMonth;
+    console.log('transactions', transactions);
+    for (var i = 0; i < members.length; i++) {
+      members[i].alreadyPaid = 0;
+      for (var j = 0; j < transactions.length; j++) {
+        if (transactions[j].user_id == members[i].user_id && transactions[j].house_id == vm.houseId) {
+          members[i].alreadyPaid += parseFloat(transactions[j].amount);
+        }
+      }
+    }
+  }
+
+  function findStillOwes(members) {
+
+//In the still owes column: I want to grab the total cost per person, and subtract what this member has already paid. 
+    for (var i = 0; i < members.length; i++) {
+      members[i].stillOwes = 0;
+      members[i].stillOwes = vm.costPerPerson - members[i].alreadyPaid
+      }
+    }
+
+  //The already paid function: should be the sum of all transaction amounts where the user id is the member id.
 
   //Add a transaction
   vm.addTransaction = function (ev) {
