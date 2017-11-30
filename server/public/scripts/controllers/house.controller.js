@@ -1,7 +1,8 @@
-myApp.controller('HouseController', function(HouseService, $mdDialog, $routeParams) {
+myApp.controller('HouseController', function(MemberService, HouseService, $mdDialog, $routeParams) {
     console.log('HouseController created');
     var vm = this;
     vm.houseService = HouseService;
+    vm.memberService = MemberService;
 
     vm.houseId = $routeParams.id;
     vm.currentHouse = '';
@@ -30,6 +31,15 @@ myApp.controller('HouseController', function(HouseService, $mdDialog, $routePara
 
 
   //Get members of the house
+
+  vm.getMembers = function(houseId) {
+    vm.memberService.getMembers(houseId).then(function(response) {
+      vm.members = response.data;
+      console.log('vm.members', vm.members);
+    })
+  }
+
+  vm.getMembers(vm.houseId);
 
 
   vm.addTransaction = function (ev) {

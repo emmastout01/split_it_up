@@ -22,6 +22,16 @@ myApp.service('MemberService', function($routeParams, $http, $location, UserServ
         })
     }
 
+    self.getMembers = function(houseId) {
+        return $http.get('/member/' + houseId).then(function(response) {
+            console.log('got members', response)
+            return response;
+        }).catch(function(err) {
+            console.log('error', err);
+            return err;
+        })
+    }
+
     self.removeHouse = function(userHouse) {
         return $http.delete('/member/' + userHouse).then(function(response) {
             console.log('deleted house', response);

@@ -74,6 +74,32 @@ router.post('/', function (req, res) {
     } // end req.isAuthenticated
 });  //end of post
 
+//GET route
+router.get('/:id', function (req, res) {
+    var houseId = req.params.id;
+    if (req.isAuthenticated()) {
+        pool.connect(function (err, db, done) {
+            if (err) {
+                console.log("Error connecting: ", err);
+                res.sendStatus(500);
+            }
+            else {
+                var queryText = 'SELECT "members".*, "users"."username" FROM "members" JOIN "users" ON "users"."id" = "members"."user_id" WHERE "members"."house_id" = $1'
+                db.query(queryText, [houseId], function (errorMakingQuery, result) {
+                    done();
+                    if (errorMakingQuery) {
+                        console.log('error making query', errorMakingQuery);
+                        res.sendStatus(500);
+                    } else {
+                        res.send(result.rows);
+                    }
+                });
+            }
+        }); //end of pool
+    } // end req.isAuthenticated
+}); //end of get route
+
+
 //delete member from house
 router.delete('/:id', function (req, res) {
     if (req.isAuthenticated()) {
