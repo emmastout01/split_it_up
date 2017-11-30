@@ -26,6 +26,7 @@ myApp.controller('EditHouseController', function ($routeParams, $mdDialog, House
     vm.getCurrentHouse(vm.houseId);
 
     vm.house = {
+        id: house.id,
         houseName: house.houseName,
         houseCode: house.houseCode,
         totalRent: parseInt(house.totalRent),
@@ -37,7 +38,6 @@ myApp.controller('EditHouseController', function ($routeParams, $mdDialog, House
     console.log('house', house);
 
     vm.editHouse = function(houseToEdit) {
-        console.log('editing');
         vm.houseService.editHouse(houseToEdit).then(function () {
             $mdDialog.hide()
         }).then(function () {
@@ -53,14 +53,14 @@ myApp.controller('EditHouseController', function ($routeParams, $mdDialog, House
     //Add house on submit click
 
 
-    vm.addHouse = function (newHouse) {
-        console.log('editi house');
-        vm.houseService.addHouse(newHouse).then(function () {
-            $mdDialog.hide()
-        }).then(function () {
-            vm.houseService.getHouses();
-        })
-    }
+    // vm.addHouse = function (newHouse) {
+    //     console.log('editi house');
+    //     vm.houseService.addHouse(newHouse).then(function () {
+    //         $mdDialog.hide()
+    //     }).then(function () {
+    //         vm.houseService.getHouses();
+    //     })
+    // }
 
     //Numbers for close out dates on addHouse form
     vm.numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]

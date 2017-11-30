@@ -53,6 +53,37 @@ router.get('/', function (req, res) {
     } // end req.isAuthenticated
 }); //end of get route
 
+//Handles transaction PUT request
+router.put('/:id', function (req, res) {
+    if (req.isAuthenticated()) {
+        var house = {
+            houseCode: req.body.houseCode,
+            totalRent: parseInt(req.body.totalRent),
+            closeOutDate: parseInt(req.body.closeOutDate)
+        }
+        console.log('req params', req.params.id);
+        var houseId = req.params.id;
+        console.log('house', house);
+        pool.connect(function (err, db, done) {
+            if (err) {
+                console.log("Error connecting: ", err);
+                res.sendStatus(500);
+            }
+            else {
+                var queryText = 'UPDATE "houses" SET "houseCode" = $1, "totalRent" = $2, "closeOutDate" = $3 WHERE "id" = $4;'
+                db.query(queryText, [house.houseCode, house.totalRent, house.closeOutDate, houseId], function (errorMakingQuery, result) {
+                    done();
+                    if (errorMakingQuery) {
+                        console.log('error making query', errorMakingQuery);
+                        res.sendStatus(500);
+                    } else {
+                        res.sendStatus(201);
+                    }
+                });
+            }
+        }); //end of pool
+    } // end req.isAuthenticated
+}); //end of put
 
 
 module.exports = router;

@@ -19,6 +19,16 @@ myApp.service('HouseService', function($routeParams, $http, $location, UserServi
         })
     }
 
+
+    self.editHouse = function(house) {
+        console.log('editing house', house);
+        return $http.put('/house/' + house.id, house).then(function(response) {
+            console.log('edited house', response);
+            return response;
+        }).catch(function(err) {
+            console.log('edit house failed', err);
+        })
+    }
     self.getHouseId = function(userHouse) {
         self.currentHouse.id = userHouse.id;
         self.currentHouse.name = userHouse.houseName;
