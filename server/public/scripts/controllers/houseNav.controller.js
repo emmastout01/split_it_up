@@ -5,6 +5,7 @@ myApp.controller('HouseNavController', function($routeParams, HouseService) {
 
     // vm.houseId = vm.houseService.currentHouse.id;
     vm.houseId = $routeParams.id;
+
     console.log('house nav id', vm.houseId);
   });
   
