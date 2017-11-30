@@ -1,0 +1,30 @@
+<md-dialog aria-label="Add House form">
+        <form ng-cloak>
+          <md-toolbar>
+            <div class="md-toolbar-tools">
+              <h2>Editing House</h2>
+            </div>
+          </md-toolbar>
+      
+          <md-dialog-content>
+            <div class="md-dialog-content">
+              <form>
+                 <strong>House Name:</strong>  <input type="text" ng-model="ec.house.houseName" id="cost" placeholder='House Name' /> <br> <br>
+                 <strong>House Code: </strong><input type="text" ng-model="ec.house.houseCode" id="cost" placeholder='House Code' /> <br> <br>
+                 <strong>Total Rent: </strong> <input type="text" ng-model="ec.house.totalRent" id="sqft" placeholder='Total Rent' /> <br> <br>
+                 <strong>What day of the month would you like to close out costs? </strong>  <select ng-model="ec.house.closeOutDate">
+                        <option ng-repeat = "number in ec.numbers">{{number}}</option> 
+                    </select> days before the end of the month
+                  </form>
+            </div>
+          </md-dialog-content>
+      
+          <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button ng-click="ec.addHouse(ec.newHouse)">Submit Form
+            </md-button>
+            <md-button ng-click="ec.cancel()">Cancel
+                </md-button>
+          </md-dialog-actions>
+        </form>
+      </md-dialog>
