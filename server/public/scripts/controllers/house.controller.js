@@ -4,15 +4,17 @@ myApp.controller('HouseController', function(HouseService, $mdDialog, $routePara
     vm.houseService = HouseService;
 
     vm.houseId = $routeParams.id;
-    console.log('house  id in house home controller', vm.houseId);
+    vm.currentHouse = '';
+    vm.members = '';
 
-  vm.currentHouse = {
-    id: vm.houseService.currentHouse.id,
-    name: vm.houseService.currentHouse.name,
-    rent: vm.houseService.currentHouse.rent,
-    closeOutDate: vm.houseService.currentHouse.closeOutDate
-}
-   
+//   vm.currentHouse = {
+//     id: vm.houseService.currentHouse.id,
+//     name: vm.houseService.currentHouse.name,
+//     rent: vm.houseService.currentHouse.rent,
+//     closeOutDate: vm.houseService.currentHouse.closeOutDate
+// }
+
+//Get data for the house that we are in
   vm.getCurrentHouse = function(houseId) {
     vm.houseService.getCurrentHouse(houseId).then(function(response) {
       console.log('we are in house', response.data[0]);
@@ -24,8 +26,11 @@ myApp.controller('HouseController', function(HouseService, $mdDialog, $routePara
     }
     }) 
   }
-
   vm.getCurrentHouse(vm.houseId);
+
+
+  //Get members of the house
+
 
   vm.addTransaction = function (ev) {
     $mdDialog.show({

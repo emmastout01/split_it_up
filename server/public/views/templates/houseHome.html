@@ -3,4 +3,9 @@
     <h1>Welcome to {{hc.currentHouse.name}}!</h1>
     <br>
     <button ng-click="hc.addTransaction($event)">Add New Transaction!</button>
+
+    <h2>House members:</h2>
+    <div ng-repeat="member in hc.members"></div>
+
+
 </div>

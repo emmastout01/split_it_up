@@ -107,8 +107,9 @@ myApp.controller('EditDialogController', function ($routeParams, $mdDialog, Hous
     vm.getCategories();
 
     vm.editTransaction = function(transaction, houseId) {
-        console.log('transaction being edited', transaction);
-        vm.transactionService.editTransaction(transaction).then(function(response) {
+        vm.transactionService.editTransaction(transaction).then(function() {
+            $mdDialog.hide()
+        }).then(function() {
             vm.transactionService.getTransactions(houseId);
         })
     }

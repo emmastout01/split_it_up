@@ -1,9 +1,10 @@
-myApp.controller('AccountController', function ($location, $mdDialog, UserService, HouseService, $routeParams) {
+myApp.controller('AccountController', function (MemberService, $location, $mdDialog, UserService, HouseService, $routeParams) {
     console.log('AccountController created');
     var vm = this;
     vm.userService = UserService;
     vm.userObject = UserService.userObject;
     vm.houseService = HouseService;
+    vm.memberService = MemberService;
   
     vm.message = ''
     vm.houses = '';
@@ -58,7 +59,7 @@ myApp.controller('AccountController', function ($location, $mdDialog, UserServic
           dangerMode: true,
         }).then(function(willDelete) {
           if (willDelete) {
-            vm.houseService.removeHouse(userHouse.id).then(function(response) {
+            vm.memberService.removeHouse(userHouse.id).then(function(response) {
               swal({title: "You have successfully removed " + userHouse.houseName + " from your houses."});
               vm.getUserHouses();
             })
