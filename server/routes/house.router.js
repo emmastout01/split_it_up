@@ -29,7 +29,7 @@ router.post('/', function (req, res) {
     } // end req.isAuthenticated
 }); //end of post
 
-// Handles GET request with new house
+// Handles GET request with houses
 router.get('/', function (req, res) {
     if (req.isAuthenticated()) {
         pool.connect(function (err, houses, done) {

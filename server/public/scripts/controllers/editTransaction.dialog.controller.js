@@ -29,8 +29,6 @@ myApp.controller('EditDialogController', function ($routeParams, $mdDialog, Hous
         viewReceipt: transaction.viewReceipt
     }
 
-    
-
     console.log('transaction', vm.transaction);
        
       vm.getCurrentHouse = function(houseId) {

@@ -6,7 +6,9 @@ var pool = require('../modules/pool.js');
 
 // Handles GET request with user houses
 router.get('/', function (req, res) {
+    console.log('in get user house');
     if (req.isAuthenticated()) {
+        console.log('still here');
         var userId = req.user.id;
         pool.connect(function (err, houses, done) {
             if (err) {
@@ -14,7 +16,7 @@ router.get('/', function (req, res) {
                 res.sendStatus(500);
             }
             else {
-                var queryText = 'SELECT "houses"."houseName", "houses"."id" FROM "houses" JOIN "members" ON "houses"."id" = "members"."house_id" WHERE "user_id" = $1'
+                var queryText = 'SELECT * FROM "houses" JOIN "members" ON "houses"."id" = "members"."house_id" WHERE "user_id" = $1'
                 houses.query(queryText, [userId], function (errorMakingQuery, result) {
                     done();
                     if (errorMakingQuery) {

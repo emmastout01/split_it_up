@@ -49,6 +49,15 @@ myApp.config(function($routeProvider, $locationProvider) {
         }
       }
     })
+    .when('/myAccount', {
+      templateUrl: '/views/templates/myAccount.html',
+      controller: 'AccountController as ac',
+      resolve: {
+        getuser : function(UserService){
+          return UserService.getuser();
+        }
+      }
+    })
     // .otherwise({
     //   redirectTo: 'home'
     // });

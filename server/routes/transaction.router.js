@@ -42,7 +42,9 @@ router.post('/', function (req, res) {
 // Handles transaction GET request
 router.get('/:id', function (req, res) {
     var houseId = req.params.id;
+    console.log('in get transactions')
     if (req.isAuthenticated()) {
+        console.log('still here');
         pool.connect(function (err, db, done) {
             if (err) {
                 console.log("Error connecting: ", err);

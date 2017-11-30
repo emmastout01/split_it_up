@@ -8,9 +8,10 @@ var pool = require('../modules/pool.js');
 router.get('/:id', function (req, res) {
     //Id coming from house controller --> house service: $routeParams.id
     var houseId = req.params.id;
- 
+    console.log('in get current house');
     //Check if user is authenticated
     if (req.isAuthenticated()) {
+        console.log('still here');
         var userId = req.user.id;
         console.log('req.user for get request', userId);
         pool.connect(function (err, db, done) {
@@ -28,14 +29,17 @@ router.get('/:id', function (req, res) {
                         console.log('error', err);
                         res.sendStatus(500);
                     } else {
+                        console.log('in else now', result.rows, houseId);
                         //Loop through all house ids user id matches (in other words, houses the user has joined). If the user is a member, memberOfHouse=true.
                         for (var i = 0; i < result.rows.length; i++) {
                             if (parseInt(houseId) === parseInt(result.rows[i].house_id)) {
                                 memberOfHouse = true;
+                                console.log('result.rows[i]', result.rows[i]);
                             } 
                         }
                         //If user is a member of the house they want to access, run the GET request that will send back house data.
                         if (memberOfHouse) {
+                            console.log('member of house');
                             var queryText = 'SELECT * FROM "houses" WHERE "id" = $1'
                             db.query(queryText, [houseId], function (errorMakingQuery, result) {
                                 done();
