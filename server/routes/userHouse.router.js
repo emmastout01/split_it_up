@@ -14,7 +14,7 @@ router.get('/', function (req, res) {
                 res.sendStatus(500);
             }
             else {
-                var queryText = 'SELECT "houses"."houseName", "houses"."id" FROM "houses" JOIN "members" ON "houses"."id" = "members"."house_id" WHERE "user_id" = $1'
+                var queryText = 'SELECT "houses"."houseName", "houses"."id", "houses"."houseCode", "houses"."totalRent", "houses"."closeOutDate" FROM "houses" JOIN "members" ON "houses"."id" = "members"."house_id" WHERE "user_id" = $1'
                 houses.query(queryText, [userId], function (errorMakingQuery, result) {
                     done();
                     if (errorMakingQuery) {
