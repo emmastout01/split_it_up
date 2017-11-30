@@ -40,8 +40,11 @@ router.post('/', function (req, res) {
 }); //end of post
 
 // Handles transaction GET request
-router.get('/:id', function (req, res) {
+router.get('/:id/:min/:max', function (req, res) {
     var houseId = req.params.id;
+    var minDate = req.params.min;
+    var maxDate = req.params.max;
+    console.log('min date', minDate, 'max date', maxDate);
     if (req.isAuthenticated()) {
         pool.connect(function (err, db, done) {
             if (err) {
@@ -49,8 +52,8 @@ router.get('/:id', function (req, res) {
                 res.sendStatus(500);
             }
             else {
-                var queryText = 'SELECT "transactions".*, "categories"."categoryName", "users"."username" FROM "transactions" JOIN "categories" ON "categories"."id" = "transactions"."category_id" JOIN "users" ON "users"."id" = "transactions"."user_id" WHERE "transactions"."house_id" = $1'
-                db.query(queryText, [houseId], function (errorMakingQuery, result) {
+                var queryText = 'SELECT "transactions".*, "categories"."categoryName", "users"."username" FROM "transactions" JOIN "categories" ON "categories"."id" = "transactions"."category_id" JOIN "users" ON "users"."id" = "transactions"."user_id" WHERE "transactions"."house_id" = $1 AND "transactions"."date" <= $2'
+                db.query(queryText, [houseId, maxDate], function (errorMakingQuery, result) {
                     done();
                     if (errorMakingQuery) {
                         console.log('error making query', errorMakingQuery);

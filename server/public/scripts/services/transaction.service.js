@@ -28,9 +28,9 @@ myApp.service('TransactionService', function($http, $routeParams, $location, Use
         })
     }
     
-    //GET transactions
-    self.getTransactions = function(houseId) {
-        return $http.get('/transaction/' + houseId).then(function(response) {
+    //GET transactions for the current month
+    self.getTransactionsForMonth = function(houseId, minDate, maxDate) {
+        return $http.get('/transaction/' + houseId + '/' + minDate + '/' + maxDate).then(function(response) {
             console.log('got transactions', response);
             self.transactionList.trans = response.data;
             return response;

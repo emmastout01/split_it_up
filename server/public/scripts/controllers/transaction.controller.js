@@ -7,6 +7,12 @@ myApp.controller('TransactionController', function ($routeParams, $mdDialog, Use
 
   vm.houseId = $routeParams.id
   vm.transactions = '';
+  vm.myDate = new Date;
+  vm.minDateNumber = '';
+  vm.maxDateNumber = '';
+
+  vm.thisMonth = moment().format('MMMM');
+
 
   //Get the current house on page load, so we have access to the data from that house (house name, id, etc.)
   vm.currentHouse = {
@@ -15,6 +21,18 @@ myApp.controller('TransactionController', function ($routeParams, $mdDialog, Use
     rent: vm.houseService.currentHouse.rent,
     closeOutDate: vm.houseService.currentHouse.closeOutDate
   }
+
+    //Get transactions for the house
+
+    vm.getTransactionsForMonth = function (houseId, minDate, maxDate) {
+      vm.transactionService.getTransactionsForMonth(houseId, minDate, maxDate).then(function (response) {
+        vm.transactions = response.data;
+        for (var i = 0; i < vm.transactions.length; i++) {
+          vm.transactions[i].date = moment(vm.transactions[i].date).format('L')
+        }
+        console.log('transactions in controller', vm.transactions);
+      })
+    }
 
   vm.getCurrentHouse = function (houseId) {
     vm.houseService.getCurrentHouse(houseId).then(function (response) {
@@ -26,24 +44,40 @@ myApp.controller('TransactionController', function ($routeParams, $mdDialog, Use
         closeOutDate: response.data[0].closeOutDate
       }
     })
+    //Then, grab the close out date from the house that we are in and assign minDate and maxDate based on the close out date
+    .then(function() {
+      console.log('close out date in dc', vm.currentHouse);
+      // vm.minDate = vm.currentHouse.closeOutDate;
+      // vm.maxDate = vm.currentHouse.closeOutDate - 1;
+      vm.minDate = new Date(
+          vm.myDate.getFullYear(),
+          vm.myDate.getMonth(),
+          -vm.minDateNumber
+      );
+
+      vm.minDate = moment(vm.minDate).format('YYYY-MM-DD');
+      
+  
+      vm.maxDate = new Date(
+          vm.myDate.getFullYear(),
+          vm.myDate.getMonth() +1,
+          -vm.maxDateNumber
+      );
+
+      vm.maxDate = moment(vm.maxDate).format('YYYY-MM-DD');
+      console.log('min date', vm.minDate, 'max date', vm.maxDate);
+  }) 
+  //Then, using the minDate and maxDate, get transactions for the range between the min and the max date
+  .then(function() {
+    vm.getTransactionsForMonth(vm.houseId, vm.minDate, vm.maxDate);
+    console.log('getting transactions', vm.minDate, vm.maxDate)
+  })
   }
 
   vm.getCurrentHouse(vm.houseId);
 
 
-  //Get transactions for the house
 
-  vm.getTransactions = function (houseId) {
-    vm.transactionService.getTransactions(houseId).then(function (response) {
-      vm.transactions = response.data;
-      for (var i = 0; i < vm.transactions.length; i++) {
-        vm.transactions[i].date = moment(vm.transactions[i].date).format('L')
-      }
-      console.log('transactions in controller', vm.transactions);
-    })
-  }
-
-  vm.getTransactions(vm.houseId);
 
 
   // Edit transactions
@@ -64,7 +98,7 @@ myApp.controller('TransactionController', function ($routeParams, $mdDialog, Use
   vm.deleteTransaction = function (transactionId) {
     console.log('delete');
     vm.transactionService.deleteTransaction(transactionId).then(function (response) {
-      vm.getTransactions(vm.houseId);
+      vm.getTransactionsForMonth(vm.houseId, vm.minDate, vm.maxDate);
     })
   }
 

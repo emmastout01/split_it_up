@@ -80,7 +80,7 @@ myApp.controller('UserController', function (MemberService, $location, $mdDialog
       button: "Join House"
     }).then(function (houseCode) {
       dataToSend.code = houseCode;
-      vm.houseService.addMember(houseCode, selectedHouse).then(function (response) {
+      vm.memberService.addMember(houseCode, selectedHouse).then(function (response) {
         if (response.status === 201) {
           swal({
             title: 'You have successfully joined ' + selectedHouse + '!',

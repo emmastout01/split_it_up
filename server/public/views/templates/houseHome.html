@@ -5,7 +5,27 @@
     <button ng-click="hc.addTransaction($event)">Add New Transaction!</button>
 
     <h2>House members:</h2>
-    <div ng-repeat="member in hc.members">{{member.username}}</div>
+    <div ng-repeat="member in hc.members">
+        <span><p><strong>Member: {{member.username}}</strong></p> 
+        <p>Already Paid:{{member.alreadyPaid | currency}}</p>
+        <p>Still Owes: {{member.stillOwes | currency}}</p></span>
+    </div>
+
+    <h2>House Rent:{{hc.currentHouse.rent | currency}}</h2>
+
+    <span><h2>Cost of all utilities transactions:{{hc.utilCost | currency}}</h2> </span>
+    
+    <span> <h2>Cost of food transactions:{{hc.foodCost | currency}}</h2></span>
+
+    <span><h2>Cost of other transactions:{{hc.otherCost | currency}}</h2></span>
+
+    <br>
+    
+    <span><h2>Total cost: {{hc.totalCost | currency}}</h2></span>
+
+
+
+    <span><h2>Total cost per person: {{hc.costPerPerson | currency}}</h2></span>
 
 
 </div>
