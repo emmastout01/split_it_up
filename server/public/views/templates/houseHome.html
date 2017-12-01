@@ -1,31 +1,55 @@
 <div ng-include="'views/partials/houseNav.html'"></div>
 <div id="templateContainer" class="container">
-    <h1>Welcome to {{hc.currentHouse.name}}!</h1>
-    <br>
-    <button ng-click="hc.addTransaction($event)">Add New Transaction!</button>
+    <span>
+        <h1>Welcome to {{hc.currentHouse.name}}!</h1>
+        <button ng-click="hc.addTransaction($event)">Add New Transaction!</button>
+    </span>
 
-    <h2>House members:</h2>
-    <div ng-repeat="member in hc.members">
-        <span><p><strong>Member: {{member.username}}</strong></p> 
-        <p>Already Paid:{{member.alreadyPaid | currency}}</p>
-        <p>Still Owes: {{member.stillOwes | currency}}</p></span>
+    <h2>Monthly Costs So far:</h2>
+
+    <div layout="row" layout layout-align="center center">
+        <div flex="20">
+            <strong>House Rent:</strong>
+            <br>
+            <br> {{hc.currentHouse.rent | currency}}</div>
+
+        <div flex="20">
+            <strong>Utilities: </strong>
+            <br>
+            <br>{{hc.utilCost | currency}}</div>
+
+        <div flex="20">
+            <strong>Food:</strong>
+            <br>
+            <br>{{hc.foodCost | currency}}</div>
+
+        <div flex="20">
+            <strong>Other Costs: </strong>
+            <br>
+            <br>{{hc.otherCost | currency}}</div>
     </div>
 
-    <h2>House Rent:{{hc.currentHouse.rent | currency}}</h2>
-
-    <span><h2>Cost of all utilities transactions:{{hc.utilCost | currency}}</h2> </span>
-    
-    <span> <h2>Cost of food transactions:{{hc.foodCost | currency}}</h2></span>
-
-    <span><h2>Cost of other transactions:{{hc.otherCost | currency}}</h2></span>
-
     <br>
-    
-    <span><h2>Total cost: {{hc.totalCost | currency}}</h2></span>
 
-<br><br><br><br><br><br><br><br><br><br>
-
-    <span><h2>Total cost per person: {{hc.costPerPerson | currency}}</h2></span>
+    <h2 layout layout-align="center center">Total house cost: {{hc.totalCost | currency}}</h2>
+    <h2 layout layout-align="center center">Cost per person: {{hc.costPerPerson | currency}}</h2>
 
 
-</div>
+    <h2 layout layout-align="center center">Who still owes what?</h2>
+
+    <table class="housemateTable">
+        <thead>
+            <th>Housemate</th>
+            <th>Already Paid</th>
+            <th>Still Owes</th>
+        </thead>
+        <tbody ng-repeat="member in hc.members">
+            <td>{{member.username}}</td>
+            <td>{{member.alreadyPaid | currency}}</td>
+            <td>{{member.stillOwes | currency}}</td>
+        </tbody>
+    </table>
+
+    <br><br><br><br><br><br>
+
+</div> <!-- end container -->

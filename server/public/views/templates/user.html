@@ -1,7 +1,7 @@
 <div ng-include="'views/partials/nav.html'"></div>
 <div id="templateContainer" class="container">
 
-    <h1 id="welcome" class="lead">Welcome, {{uc.userObject.userName}}!</h1>
+    <h1 id="welcome">Welcome, {{uc.userObject.userName}}!</h1>
     <h3>{{uc.message}}</h3> 
     <div ng-repeat= "userHouse in uc.userHouses"> 
         <span><a href="#/houseHome/{{userHouse.id}}"><button ng-click="uc.getHouseId(userHouse)">{{userHouse.houseName}}</button></a><button ng-click="uc.removeHouse(userHouse)">Remove house from my list</button></span>   <br></div>
@@ -16,7 +16,4 @@
         <br>
         <br>
         <button ng-click ="uc.createHouse($event)">Create a new house</button>
-        <br>
-        <br>
-    <button class="btn btn-default" ng-click="uc.userService.logout()">Log Out</button>
 </div>

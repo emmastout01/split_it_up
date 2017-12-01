@@ -103,7 +103,7 @@ myApp.controller('DialogController', function ($routeParams, $mdDialog, HouseSer
 
     //Add house on submit click
 
-
+ 
     vm.addHouse = function (newHouse) {
         console.log('adding house');
         vm.houseService.addHouse(newHouse).then(function () {
@@ -135,7 +135,7 @@ myApp.controller('DialogController', function ($routeParams, $mdDialog, HouseSer
     //Get request for all categories
     vm.getCategories = function() {
         vm.transactionService.getCategories().then(function (response) {
-            vm.categories = response.data;
+          vm.categories = response.data;
             console.log('categories:', vm.categories);
         })
     }

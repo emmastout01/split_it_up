@@ -11,7 +11,7 @@ myApp.service('MemberService', function($routeParams, $http, $location, UserServ
         console.log('member to send', memberToSend, memberToSend.userId);
         return $http.post('/member', memberToSend).then(function(response) {
             console.log('new member post', response)
-            self.getHouses();
+            // self.getHouses();
             return response;
         }).catch(function(err) {
             if(err.status === 401) {

@@ -1,5 +1,5 @@
 <div ng-include="'views/partials/houseNav.html'"></div>
-<div id="templateContainer" class="container">
+<div id="templateContainer">
   <h1>Transactions for {{tc.currentHouse.name}}:</h1>
 
   <md-toolbar class="md-table-toolbar md-default">
@@ -10,7 +10,7 @@
 
   <!-- Transaction Table -->
   <md-table-container>
-    <table md-table md-row-select multiple ng-model="selected" md-progress="promise" >
+    <table id="transactionTable" md-table md-row-select multiple ng-model="selected" md-progress="promise" >
       <thead md-head md-order="query.order">
         <!-- should not be get desserts--change this!-->
         <tr md-row>
@@ -42,4 +42,7 @@
 
   <md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{transactions.count}}"
     md-page-select></md-table-pagination>
+    <br>
+    <br><br><br><br><br>
 </div>
+<br>

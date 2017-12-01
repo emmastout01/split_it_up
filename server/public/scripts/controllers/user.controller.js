@@ -23,6 +23,7 @@ myApp.controller('UserController', function (MemberService, $location, $mdDialog
 
   vm.getUserHouses = function() {
     vm.houseService.getUserHouses().then(function(response) {
+      console.log('vm get user houses', response.data);
       vm.userHouses = response.data;
       if (response.data.length === 0) {
         console.log('no houses!')
@@ -86,6 +87,7 @@ myApp.controller('UserController', function (MemberService, $location, $mdDialog
             title: 'You have successfully joined ' + selectedHouse + '!',
             icon: "success"
           })
+          console.log('response from member service', response);
           vm.getUserHouses();
         }
         else if (response.status === 401) {
