@@ -24,7 +24,7 @@ myApp.controller('EditDialogController', function ($routeParams, $mdDialog, Hous
         house_id: transaction.house_id,
         amount: parseFloat(transaction.amount),
         date: moment(transaction.date).format('L'),
-        category_id: transaction.category_id,
+        category_id: transaction.category_id, //need to grab the NAME of the category where category_id = this
         notes: transaction.notes,
         viewReceipt: transaction.viewReceipt
     }
@@ -109,9 +109,11 @@ myApp.controller('EditDialogController', function ($routeParams, $mdDialog, Hous
     vm.editTransaction = function(transaction, houseId) {
         vm.transactionService.editTransaction(transaction).then(function() {
             $mdDialog.hide()
-        }).then(function() {
-            vm.transactionService.getTransactions(houseId);
         })
+        // .then(function() {
+        //     vm.transactionService.getTransactions(houseId);
+        // })
     }
 
 });
+ 

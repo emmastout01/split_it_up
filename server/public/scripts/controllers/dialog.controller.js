@@ -69,6 +69,7 @@ myApp.controller('DialogController', function ($routeParams, $mdDialog, HouseSer
     
         // Cancels a dialog box
         vm.cancel = function () {
+            console.log('canceled dialog');
             $mdDialog.cancel();
         };
     

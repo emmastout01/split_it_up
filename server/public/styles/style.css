@@ -2,12 +2,14 @@ body, html {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-  color: rgba(255, 247, 220, 0.911);
+  /* color: rgba(255, 247, 220, 0.911); */
+  color: cornsilk;
   font-size: 24px;
-  background-image: linear-gradient(to top, #0c3483 0%, #a2b6df 100%, #6b8cce 100%, #a2b6df 100%);
+  background-image: linear-gradient(to top, rgb(12, 52, 131) 0%, #a2b6df 100%, #6b8cce 100%, #a2b6df 100%);
   background-attachment: fixed;
   background-position: right-top;
   background-repeat: no-repeat;
+  font-family: 'Dosis', sans-serif;
 }
 
 body {
@@ -33,10 +35,10 @@ body {
 
 .logo {
   height: 140px;
-  width: 400px;
-  background-image: url("logo.png");
+  background-image: url("logo2.png");
   background-position: center center;
-  position: center;
+  margin: 15px;
+
 }
 
 /* 
@@ -73,7 +75,7 @@ body {
 }
 
 .navbar {
-  background-color: rgb(19, 19, 131);
+  background-color: #131383;
   width: 100%;
   border-radius: 0px;
 }
@@ -136,4 +138,12 @@ th, td {
 
 .leftSide {
   color: e3e6e0;
+}
+
+th, td {
+  background-color: rgba(12, 52, 131, 0.2)
+}
+
+md-button {
+  background-color: #131383;
 }

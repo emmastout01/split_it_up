@@ -113,6 +113,9 @@ myApp.controller('UserController', function (MemberService, $location, $mdDialog
       controller: 'DialogController as dc',
       targetEvent: ev,
       clickOutsideToClose: false
+    }).then(function() {
+      console.log('here');
+      vm.getHouses();
     })
 };
 

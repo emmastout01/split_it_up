@@ -1,48 +1,37 @@
 <div ng-include="'views/partials/houseNav.html'"></div>
 <div id="templateContainer">
-  <h1>Transactions for {{tc.currentHouse.name}}:</h1>
-
-  <md-toolbar class="md-table-toolbar md-default">
-    <div class="md-toolbar-tools">
-      <span>Transactions for {{tc.thisMonth}}</span>
-    </div>
-  </md-toolbar>
+    <div class="transactionTable" layout="row" layout-align="center center">
+  <h1>{{tc.thisMonth}} Transactions for {{tc.currentHouse.name}}</h1>
+  </div>
 
   <!-- Transaction Table -->
-  <md-table-container>
-    <table id="transactionTable" md-table md-row-select multiple ng-model="selected" md-progress="promise" >
-      <thead md-head md-order="query.order">
-        <!-- should not be get desserts--change this!-->
-        <tr md-row>
-          <th md-column>Housemate</th>
-          <th md-column>Date</th>
-          <th md-column>Amount</th>
-          <th md-column>Category</th>
-          <th md-column>Notes</th>
-          <th md-column>View Receipt</th>
-          <th md-column>Edit Transaction</th>
-          <th md-column>Delet Transaction</th>
+    <div class="transactionTable" layout="row" layout-align="center center">
+    <table id="transactionTable" ng-model="selected">
+      <thead>
+        <tr>
+          <th>Housemate</th>
+          <th>Date</th>
+          <th>Amount</th>
+          <th>Category</th>
+          <th>Notes</th>
+          <th>View Receipt</th>
+          <th>Edit Transaction</th>
+          <th>Delete Transaction</th>
         </tr>
       </thead>
-      <tbody md-body>
-        <!-- <tr md-row md-select="dessert" md-select-id="name" md-auto-select ng-repeat="dessert in desserts.data"> -->
-        <tr md-row md-select="transaction" md-select-id="name" md-auto-select ng-repeat="transaction in tc.transactions">
-          <td md-cell>{{transaction.username}}</td>
-          <td md-cell>{{transaction.date}}</td>
-          <td md-cell>{{transaction.amount | currency}}</td>
-          <td md-cell>{{transaction.categoryName}}</td>
-          <td md-cell>{{transaction.notes}}</td>
-          <td md-cell><md-button class="md-accent md-raised" ng-show="tc.showViewReceipt(transaction)" ng-click="tc.viewReceipt($event, transaction)">View Receipt</button></td>
-          <td md-cell><md-button class="md-accent md-raised" ng-click="tc.editTransaction($event, transaction)">Edit</button></td>
-          <td md-cell><md-button class="md-accent md-raised" ng-click="tc.deleteTransaction(transaction.id)">Delete</button></td>
+      <tbody>
+        <tr ng-repeat="transaction in tc.transactions">
+          <td>{{transaction.username}}</td>
+          <td>{{transaction.date}}</td>
+          <td>{{transaction.amount | currency}}</td>
+          <td>{{transaction.categoryName}}</td>
+          <td>{{transaction.notes}}</td>
+          <td><md-button class="md-raised" ng-show="tc.showViewReceipt(transaction)" ng-click="tc.viewReceipt($event, transaction)">View Receipt</button></td>
+          <td><md-button class="md-raised" ng-click="tc.editTransaction($event, transaction)">Edit</button></td>
+          <td><md-button class="md-raised" ng-click="tc.deleteTransaction(transaction.id)">Delete</button></td>
         </tr>
       </tbody>
     </table>
-  </md-table-container>
-
-  <md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{transactions.count}}"
-    md-page-select></md-table-pagination>
-    <br>
-    <br><br><br><br><br>
+  </div>
 </div>
 <br>

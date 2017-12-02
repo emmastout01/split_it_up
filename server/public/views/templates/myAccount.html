@@ -6,9 +6,9 @@
 <h3>You are a member of the following houses:</h3> 
 <div ng-repeat= "userHouse in ac.userHouses"> 
     <a href="#/houseHome/{{userHouse.id}}">
-        <md-button class="md-accent md-raised" ng-click="ac.getHouseId(userHouse)">{{userHouse.houseName}}</md-button></a>
-        <md-button class="md-accent md-raised" ng-click="ac.editHouse($event, userHouse)">Edit House</md-button>
-        <md-button class="md-accent md-raised" ng-click="ac.removeHouse(userHouse)">Remove House</md-button> 
+        <md-button class="md-raised" ng-click="ac.getHouseId(userHouse)">{{userHouse.houseName}}</md-button></a>
+        <md-button class="md-raised" ng-click="ac.editHouse($event, userHouse)">Edit House</md-button>
+        <md-button class="md-raised" ng-click="ac.removeHouse(userHouse)">Remove House</md-button> 
      </div>       
 <br> <br>
 

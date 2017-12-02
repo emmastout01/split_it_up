@@ -47,7 +47,7 @@ myApp.service('HouseService', function($routeParams, $http, $location, UserServi
         }
         return $http.post('/house', houseToSend).then(function(response) {
             console.log('new house post', response)
-            self.getHouses();
+            // self.getHouses();
             return response;
         }).catch(function(err) {
             console.log('house post didn\'t work', err);

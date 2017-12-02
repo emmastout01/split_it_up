@@ -137,6 +137,8 @@ myApp.controller('TransactionController', function ($routeParams, $mdDialog, Use
       targetEvent: ev,
       clickOutsideToClose: true,
       locals: { photo: vm.thisTransactionPhoto.photo }
+    }).then(function() {
+      console.log('here');
     })
   };
 
