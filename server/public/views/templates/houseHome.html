@@ -37,7 +37,8 @@
 
     <h2 layout layout-align="center center">Who still owes what?</h2>
 
-    <table class="housemateTable">
+    <div layout="row" layout-align="center center">
+    <table >
         <thead>
             <th>Housemate</th>
             <th>Already Paid</th>
@@ -49,7 +50,7 @@
             <td>{{member.stillOwes | currency}}</td>
         </tbody>
     </table>
-
-    <br><br><br><br><br><br>
+</div>
+<br><br><br>
 
 </div> <!-- end container -->
