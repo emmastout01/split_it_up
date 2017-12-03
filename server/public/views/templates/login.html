@@ -1,18 +1,25 @@
 <div id="templateContainer" class="container">
-  <h1 class="lead">Login</h1>
+        <div layout="column" layout-align="center center">
+  <h1 class="lead">Welcome to Split it Up!</h1>
     <h1 class="lead alert alert-danger" role="alert" ng-if="lc.message != ''">{{lc.message}}</h2>
-    <form ng-submit="lc.login()">
+    <!-- <form ng-submit="lc.login()"> -->
+        
       <div>
           <label for="username">Username:</label>
           <input type="text" ng-model="lc.user.username" />
       </div>
+      <br>
       <div>
           <label for="password">Password:</label>
           <input type="password" ng-model="lc.user.password" />
       </div>
-      <div>
-          <input class="btn btn-default" type="submit" name="submit" value="Log In" />
-          <a href="#register">Register</a>
+      <div class="login">
+        <md-button class="button" ng-click="lc.login()">Log in</md-button>  
+        <!-- <input class="btn btn-default" type="submit" name="submit" value="Log In" /> -->
       </div>
-    </form>
+      <div class="register">Not a member yet?
+          <a href="#register"><md-button class="button">Register here!</md-button></a>
+      </div>
+    </div>
+    <!-- </form> -->
 </div>

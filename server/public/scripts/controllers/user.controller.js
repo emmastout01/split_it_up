@@ -75,7 +75,7 @@ myApp.controller('UserController', function (MemberService, $location, $mdDialog
       code: ''
     };
     swal({
-      title: "Join House",
+      title: "Join " + selectedHouse,
       text: "Plese enter house code:",
       content: "input",
       button: "Join House"

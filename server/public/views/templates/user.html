@@ -4,16 +4,23 @@
     <h1 id="welcome">Welcome, {{uc.userObject.userName}}!</h1>
     <h3>{{uc.message}}</h3> 
     <div ng-repeat= "userHouse in uc.userHouses"> 
-        <span><a href="#/houseHome/{{userHouse.id}}"><button ng-click="uc.getHouseId(userHouse)">{{userHouse.houseName}}</button></a><button ng-click="uc.removeHouse(userHouse)">Remove house from my list</button></span>   <br></div>
+        <span><a href="#/houseHome/{{userHouse.id}}"><md-button class="houseButton button" ng-click="uc.getHouseId(userHouse)">{{userHouse.houseName}}</md-button></a>
+           <br></div>
     <br>
 
 
     <form ng-submit="uc.selectHouse">
-        Select a house to join: <select ng-model="uc.selectedHouse">
-            <option ng-repeat = "house in uc.houses">{{house.houseName}}</option> 
-        </select>
-        <button ng-click="uc.selectHouse(uc.selectedHouse)">Select house</button> 
+        Select a house to join:
+        <md-input-container>
+            <label>Select a House</label>
+            <md-select class="select" ng-model="uc.selectedHouse">
+                <md-option aria-label="select house" ng-repeat="house in uc.houses" ng-value="house.houseName">{{house.houseName}}</md-option>
+            </md-select>
+        </md-input-container>
+        <md-button class="button" ng-click="uc.selectHouse(uc.selectedHouse)" aria-label="select house">Select house</md-button>
         <br>
         <br>
-        <button ng-click ="uc.createHouse($event)">Create a new house</button>
+        <md-button class="button" ng-click="uc.createHouse($event)">Create a new house</md-button>
+        <br>
+        <br>
 </div>

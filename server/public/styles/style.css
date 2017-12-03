@@ -40,15 +40,21 @@ body {
   margin: 15px;
 
 }
-
-/* 
-#entryForm {
-  margin-top: 14px;
+ 
+.login, .register {
+  margin-top: 20px;
 }
 
-#container {
-  margin-top: 10px;
-} */
+.button {
+  font-size: 20px;
+  background-color: cornsilk;
+  color: #131383;
+}
+
+.houseButton {
+  font-size: 30px;
+  text-transform: none;
+}
 
 .container p{
   margin-top : 14px;
@@ -93,7 +99,7 @@ li {
 
 li a {
   display: block;
-  color: white;
+  color: cornsilk;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
@@ -129,14 +135,11 @@ th, td {
   align-items: center;
 }
 
-.rightSide {
-  color: white;
+/* .rightSide {
+  color: cornsilk;
   padding-right: 25px;
-}
+} */
 
-.leftSide {
-  color: e3e6e0;
-}
 
 th, td {
   background-color: rgba(12, 52, 131, 0.2)
@@ -144,4 +147,9 @@ th, td {
 
 md-button {
   background-color: #131383;
+}
+
+.select {
+  background-color: cornsilk;
+  color: #131383;
 }
