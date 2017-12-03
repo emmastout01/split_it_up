@@ -150,14 +150,14 @@ myApp.controller('HouseController', function (TransactionService, MemberService,
   //The already paid function: should be the sum of all transaction amounts where the user id is the member id.
 
   //Add a transaction
-  vm.addTransaction = function (ev) {
-    $mdDialog.show({
-      templateUrl: '/views/dialogs/dialog.addTransaction.html',
-      controller: 'DialogController as dc',
-      targetEvent: ev,
-      clickOutsideToClose: false
-    })
-  };
+  // vm.addTransaction = function (ev) {
+  //   $mdDialog.show({
+  //     templateUrl: '/views/dialogs/dialog.addTransaction.html',
+  //     controller: 'DialogController as dc',
+  //     targetEvent: ev,
+  //     clickOutsideToClose: false
+  //   })
+  // };
 
 
 

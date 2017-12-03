@@ -8,6 +8,9 @@
           </ul>
         </div>
         <div class="rightSide">
+          <md-button class="addTransButton" ng-click="nc.addTransaction($event)">
+            <div layout="row" layout-align="center center"><img id="addIcon" src="/styles/add-icon.png"><div></div>New Transaction</div>
+            </md-button>
         <md-button class="button" ng-click="nc.userService.logout()">Log Out</md-button>
         </div>
         </div>

@@ -27,10 +27,8 @@ body {
 
 .lead {
   font-family: 'Shadows Into Light', cursive;
-  color: rgba(255, 244, 206, 0.6);
   color: cornsilk;
   font-size: 50px;
-  margin-left: 20px;
 }
 
 .logo {
@@ -57,14 +55,40 @@ body {
   color: cornsilk;
 }
 
+#uploadPhoto {
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
 .houseButton {
   font-size: 30px;
   text-transform: none;
 }
 
+.addTransButton {
+  color: cornsilk;
+  background-color: rgb(189, 60, 51);
+  font-size: 20px;
+  padding-top: -10px;
+}
+
+.button-icon {
+  background-color: transparent; 
+}
+
+#addIcon {
+  height: 30px;
+  width: auto;
+  margin-right: 5px;
+  /* margin-top: 10px; */
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+
 .container p{
   margin-top : 14px;
 }
+
 
 .message {
   padding: 10px 0;

@@ -1,7 +1,7 @@
 <div ng-include="'views/partials/nav.html'"></div>
 <div id="templateContainer" class="container">
 
-    <h1 id="welcome">Welcome, {{uc.userObject.userName}}!</h1>
+    <h1 id="welcome" class="lead">Welcome, {{uc.userObject.userName}}!</h1>
     <h3>{{uc.message}}</h3>
     <div layout="row" ng-repeat="userHouse in uc.userHouses">
             <a href="#/houseHome/{{userHouse.id}}">
