@@ -115,7 +115,7 @@ myApp.controller('DialogController', function ($routeParams, $mdDialog, HouseSer
     }
 
     //Numbers for close out dates on addHouse form
-    vm.numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    vm.numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 
     //Add transaction dialog on add transaction page

@@ -51,6 +51,12 @@ body {
   color: #131383;
 }
 
+.dialogButton {
+  font-size: 20px;
+  background-color: #131383 ;
+  color: cornsilk;
+}
+
 .houseButton {
   font-size: 30px;
   text-transform: none;
@@ -152,4 +158,24 @@ md-button {
 .select {
   background-color: cornsilk;
   color: #131383;
+}
+
+h3 {
+  margin: 0px 0px 15px 0px;
+  padding: 0px;
+}
+
+#templateContainer {
+  margin: 20px;
+  padding: 10px;
+}
+
+#closeOut {
+  margin: 0px;
+  padding: 0px;
+}
+
+#closeOutInput {
+  margin: 0px 15px;
+  padding: 0px;
 }

@@ -2,28 +2,31 @@
         <form>
           <md-toolbar>
             <div class="md-toolbar-tools">
-              <h2>New House</h2>
+              <h2>Create a New House</h2>
             </div>
           </md-toolbar>
       
           <md-dialog-content>
             <div class="md-dialog-content">
               <form>
-                 <strong>House Name:</strong>  <input type="text" ng-model="dc.newHouse.houseName" id="cost" placeholder='House Name' /> <br> <br>
-                 <strong>House Code: </strong><input type="text" ng-model="dc.newHouse.houseCode" id="cost" placeholder='House Code' /> <br> <br>
-                 <strong>Total Rent: </strong> <input type="text" ng-model="dc.newHouse.totalRent" id="sqft" placeholder='Total Rent' /> <br> <br>
-                 <strong>What day of the month would you like to close out costs? </strong>  <select ng-model="dc.newHouse.closeOutDate">
-                        <option ng-repeat = "number in dc.numbers">{{number}}</option> 
-                    </select> days before the end of the month
+                 <strong>House Name:</strong>  <input type="text" ng-model="dc.newHouse.houseName" id="cost" /> <br> <br>
+                 <strong>House Code: </strong><input type="text" ng-model="dc.newHouse.houseCode" id="cost" /> <br> <br>
+                 <strong>Total Rent: </strong> <input type="text" ng-model="dc.newHouse.totalRent" id="sqft" /> <br> <br>
+                 <strong id="closeOut">How many days before the end of the month <br> would you like to close out costs? </strong>  
+                 <md-input-container id="closeOutInput">
+                    <md-select ng-model="dc.newHouse.closeOutDate">
+                        <md-option ng-repeat = "number in dc.numbers" ng-value="number">{{number}}</md-option> 
+                    </md-select> day(s)
+                 </md-input-container>
                   </form>
             </div>
           </md-dialog-content>
       
           <md-dialog-actions layout="row">
             <span flex></span>
-            <md-button ng-click="dc.addHouse(dc.newHouse)">Submit Form
+            <md-button class="dialogButton" ng-click="dc.addHouse(dc.newHouse)">Submit Form
             </md-button>
-            <md-button ng-click="dc.cancel()">Cancel
+            <md-button class="dialogButton" ng-click="dc.cancel()">Cancel
                 </md-button>
           </md-dialog-actions>
         </form>
