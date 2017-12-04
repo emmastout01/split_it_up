@@ -6,31 +6,29 @@
 <h3>You are a member of the following houses:</h3> 
 <div ng-repeat= "userHouse in ac.userHouses"> 
     <a href="#/houseHome/{{userHouse.id}}">
-        <md-button class="md-raised" ng-click="ac.getHouseId(userHouse)">{{userHouse.houseName}}</md-button></a>
-        <md-button class="md-raised" ng-click="ac.editHouse($event, userHouse)">Edit House</md-button>
-        <md-button class="md-raised" ng-click="ac.removeHouse(userHouse)">Remove House</md-button> 
+        <md-button class="button" ng-click="ac.getHouseId(userHouse)">{{userHouse.houseName}}</md-button></a>
+        <md-button class="button" ng-click="ac.editHouse($event, userHouse)">Edit House</md-button>
+        <md-button class="button" ng-click="ac.removeHouse(userHouse)">Remove House</md-button> 
      </div>       
 <br> <br>
 
 <div>
-<form ng-submit="ac
-.selectHouse">
-    Select a house to join: <select ng-model="ac
-    .selectedHouse">
-        <option ng-repeat = "house in ac
-        .houses">{{house.houseName}}</option> 
-    </select>
-    <button ng-click="ac
+
+    Select a house to join:
+    <md-input-container>
+        <label>Select a House</label>
+        <md-select class="select" ng-model="uc.selectedHouse">
+            <md-option aria-label="select house" ng-repeat="house in ac.houses" ng-value="house.houseName">{{house.houseName}}</md-option>
+        </md-select>
+    </md-input-container>
+    <md-button class="button" ng-click="ac
     .selectHouse(ac
-    .selectedHouse)">Select house</button> 
+    .selectedHouse)">Select house</md-button> 
+    <br><br>
+    <md-button class="button" ng-click ="ac
+    .createHouse($event)">Create a new house</md-button>
     <br>
     <br>
-    <button ng-click ="ac
-    .createHouse($event)">Create a new house</button>
-    <br>
-    <br>
-<button class="btn btn-default" ng-click="ac
-.userService.logout()">Log Out</button>
 </div>
 
 </div>

@@ -26,9 +26,9 @@
           <td>{{transaction.amount | currency}}</td>
           <td>{{transaction.categoryName}}</td>
           <td>{{transaction.notes}}</td>
-          <td><md-button class="button-icon" ng-show="tc.showViewReceipt(transaction)" ng-click="tc.viewReceipt($event, transaction)"><span class="material-icons">zoom_in</span></button></td>
-          <td><md-button class="button-icon" ng-click="tc.editTransaction($event, transaction)"><span class="material-icons">edit</span></button></td>
-          <td><md-button class="button-icon" ng-click="tc.deleteTransaction(transaction.id)"><span class="material-icons">delete</span></button></td>
+          <td><md-button class="button-icon" ng-show="tc.showViewReceipt(transaction)" ng-click="tc.viewReceipt($event, transaction)"><span class="material-icons icon">zoom_in</span></button></td>
+          <td><md-button class="button-icon" ng-click="tc.editTransaction($event, transaction)"><span class="material-icons icon">edit</span></button></td>
+          <td><md-button class="button-icon" ng-click="tc.deleteTransaction(transaction.id)"><span class="material-icons icon">delete</span></button></td>
         </tr>
       </tbody>
     </table>
