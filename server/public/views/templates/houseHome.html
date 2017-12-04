@@ -1,39 +1,30 @@
 <div ng-include="'views/partials/houseNav.html'"></div>
 <div id="templateContainer" class="container">
-    <span>
+  <div layout="row" layout-align="center center">
         <h1>Welcome to {{hc.currentHouse.name}}!</h1>
-        <!-- <md-button class="md-raised" ng-click="hc.addTransaction($event)">Add New Transaction!</md-button> -->
-    </span>
-
-    <h2>Monthly Costs So far:</h2>
-
-    <div layout="row" layout layout-align="center center">
-        <div flex="20">
-            <strong>House Rent:</strong>
-            <br>
-            <br> {{hc.currentHouse.rent | currency}}</div>
-
-        <div flex="20">
-            <strong>Utilities: </strong>
-            <br>
-            <br>{{hc.utilCost | currency}}</div>
-
-        <div flex="20">
-            <strong>Food:</strong>
-            <br>
-            <br>{{hc.foodCost | currency}}</div>
-
-        <div flex="20">
-            <strong>Other Costs: </strong>
-            <br>
-            <br>{{hc.otherCost | currency}}</div>
     </div>
+  
 
-    <br>
+        <div class="houseCosts">
+            <h2>{{hc.thisMonth}} Costs So Far</h2>
+            <div layout="row" layout-align="start end">
+                <div class="totalCost"><strong>{{hc.totalCost | currency}}</strong></div>
+                <div class="total">Total</div>
+            </div>
+            <div layout="row" layout-align="start end">
+                    <div class="perPersonCost"><strong>{{hc.costPerPerson | currency}}</strong></div>
+                    <div class="perPerson">Per Person</div>
+                </div>
 
-    <h2 layout layout-align="center center">Total house cost: {{hc.totalCost | currency}}</h2>
-    <h2 layout layout-align="center center">Cost per person: {{hc.costPerPerson | currency}}</h2>
+            <br>
+            <div class="cost"><span class="material-icons">subdirectory_arrow_right</span>Rent: {{hc.currentHouse.rent | currency}}</div>
+            <div class="cost" ><span class="material-icons">subdirectory_arrow_right</span>Utilities: {{hc.utilCost | currency}} </div>
+            <div class="cost"><span class="material-icons">subdirectory_arrow_right</span>Food: {{hc.foodCost | currency}}</div>
+            <div class="cost"><span class="material-icons">subdirectory_arrow_right</span>Other Costs: {{hc.otherCost | currency}}</div>
 
+
+
+        </div>
 
     <h2 layout layout-align="center center">Who still owes what?</h2>
 

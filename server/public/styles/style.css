@@ -120,18 +120,18 @@ body {
   border-radius: 0px;
 }
 
-ul {
+.ul-nav {
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
 }
 
-li {
+.li-nav {
   float: left;
 }
 
-li a {
+.li-nav a {
   display: block;
   color: cornsilk;
   text-align: center;
@@ -140,7 +140,7 @@ li a {
 }
 
 /* Change the link color to #111 (black) on hover */
-li a:hover {
+.li-nav a:hover {
   text-decoration: underline;
   color: #eee;
 }
@@ -161,6 +161,8 @@ li a:hover {
 
 th, td {
   padding: 15px;
+  text-align: center;
+  background-color: rgba(12, 52, 131, 0.2)
 }
 
 .navContainer {
@@ -169,15 +171,6 @@ th, td {
   align-items: center;
 }
 
-/* .rightSide {
-  color: cornsilk;
-  padding-right: 25px;
-} */
-
-
-th, td {
-  background-color: rgba(12, 52, 131, 0.2)
-}
 
 md-button {
   background-color: #131383;
@@ -215,4 +208,34 @@ h3 {
 .accountIcon {
   font-size: 30px;
   margin: 0px;
+}
+
+.totalCost {
+  font-size: 60px;
+  color: green;
+}
+
+.perPersonCost {
+  font-size: 40px;
+  color: purple;
+}
+
+.total, .perPerson {
+  margin-bottom: 0px;
+  margin-left: 10px;
+  text-transform: uppercase;
+}
+
+.cost {
+  margin-left: 20px;
+  font-size: 30px;
+}
+
+.houseCosts {
+  border: 1px solid cornsilk;
+  max-width: 350px;
+  padding: 15px;
+  padding-top: 0px;
+  background-color: rgba(12, 52, 131, 0.2)
+
 }

@@ -1,8 +1,9 @@
-myApp.controller('EditDialogController', function ($routeParams, $mdDialog, HouseService, TransactionService, transaction) {
+myApp.controller('EditDialogController', function (UserService, $routeParams, $mdDialog, HouseService, TransactionService, transaction) {
     console.log('EditDialogController created');
     var vm = this;
     vm.houseService = HouseService;
     vm.transactionService = TransactionService;
+    vm.userObject = UserService.userObject;
 
     vm.categories = [];
     vm.myDate = new Date();
