@@ -1,46 +1,57 @@
 <div ng-include="'views/partials/houseNav.html'"></div>
 <div id="templateContainer" class="container">
-  <div layout="row" layout-align="center center">
+    <div layout="row" layout-align="center center">
         <h1>Welcome to {{hc.currentHouse.name}}!</h1>
     </div>
-  
-<div layout="row" layout-align="center" >
+
+    <div layout="row" layout-align="center">
         <div class="houseCosts">
             <h2>{{hc.thisMonth}} Costs So Far</h2>
             <div layout="row" layout-align="start end">
-                <div class="totalCost"><strong>{{hc.totalCost | currency}}</strong></div>
+                <div class="totalCost">
+                    <strong>{{hc.totalCost | currency}}</strong>
+                </div>
                 <div class="total">Total</div>
             </div>
             <div layout="row" layout-align="start end">
-                    <div class="perPersonCost"><strong>{{hc.costPerPerson | currency}}</strong></div>
-                    <div class="perPerson">Per Person</div>
+                <div class="perPersonCost">
+                    <strong>{{hc.costPerPerson | currency}}</strong>
                 </div>
+                <div class="perPerson">Per Person</div>
+            </div>
 
             <br>
-            <div class="cost"><span class="material-icons">subdirectory_arrow_right</span>Rent: {{hc.currentHouse.rent | currency}}</div>
-            <div class="cost" ><span class="material-icons">subdirectory_arrow_right</span>Utilities: {{hc.utilCost | currency}} </div>
-            <div class="cost"><span class="material-icons">subdirectory_arrow_right</span>Food: {{hc.foodCost | currency}}</div>
-            <div class="cost"><span class="material-icons">subdirectory_arrow_right</span>Other Costs: {{hc.otherCost | currency}}</div>
+            <div class="cost">
+                <span class="material-icons">subdirectory_arrow_right</span>Rent: {{hc.currentHouse.rent | currency}}</div>
+            <div class="cost">
+                <span class="material-icons">subdirectory_arrow_right</span>Utilities: {{hc.utilCost | currency}} </div>
+            <div class="cost">
+                <span class="material-icons">subdirectory_arrow_right</span>Food: {{hc.foodCost | currency}}</div>
+            <div class="cost">
+                <span class="material-icons">subdirectory_arrow_right</span>Other Costs: {{hc.otherCost | currency}}</div>
 
         </div>
 
         <div class="separator"></div>
         <div class="stillOwes">
-    <h2 layout="row" layout-align="center">Who still owes what?</h2>
-    <table >
-        <thead>
-            <th>Housemate</th>
-            <th>Already Paid</th>
-            <th>Still Owes</th>
-        </thead>
-        <tbody ng-repeat="member in hc.members">
-            <td>{{member.username}}</td>
-            <td>{{member.alreadyPaid | currency}}</td>
-            <td>{{member.stillOwes | currency}}</td>
-        </tbody>
-    </table>
-</div>
-</div>
-<br><br><br>
+            <h2 layout="row" layout-align="center">Who still owes what?</h2>
+            <table>
+                <thead>
+                    <th>Housemate</th>
+                    <th>Already Paid</th>
+                    <th>Still Owes</th>
+                </thead>
+                <tbody ng-repeat="member in hc.members">
+                    <td>{{member.username}}</td>
+                    <td>{{member.alreadyPaid | currency}}</td>
+                    <td>{{member.stillOwes | currency}}</td>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
 
-</div> <!-- end container -->
+</div>
+<!-- end container -->

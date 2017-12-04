@@ -4,7 +4,7 @@ body, html {
   font-family: sans-serif;
   /* color: rgba(255, 247, 220, 0.911); */
   color: cornsilk;
-  font-size: 24px;
+  font-size: 28px;
   background-image: linear-gradient(to top, rgb(12, 52, 131) 0%, #a2b6df 100%, #6b8cce 100%, #a2b6df 100%);
   background-attachment: fixed;
   background-position: right-top;
@@ -233,7 +233,7 @@ h3 {
 
 .houseCosts, .stillOwes {
   border: 1px solid cornsilk;
-  max-width: 350px;
+  max-width: 450px;
   padding: 15px;
   padding-top: 0px;
   background-color: rgba(12, 52, 131, 0.2)
