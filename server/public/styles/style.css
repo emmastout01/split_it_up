@@ -212,12 +212,12 @@ h3 {
 
 .totalCost {
   font-size: 60px;
-  color: green;
+  color: rgb(40, 243, 40);
 }
 
 .perPersonCost {
   font-size: 40px;
-  color: purple;
+  color: rgb(204, 83, 204);
 }
 
 .total, .perPerson {
@@ -231,11 +231,15 @@ h3 {
   font-size: 30px;
 }
 
-.houseCosts {
+.houseCosts, .stillOwes {
   border: 1px solid cornsilk;
   max-width: 350px;
   padding: 15px;
   padding-top: 0px;
   background-color: rgba(12, 52, 131, 0.2)
-
 }
+
+.separator {
+  width: 150px;
+}
+

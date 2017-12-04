@@ -4,7 +4,7 @@
         <h1>Welcome to {{hc.currentHouse.name}}!</h1>
     </div>
   
-
+<div layout="row" layout-align="center" >
         <div class="houseCosts">
             <h2>{{hc.thisMonth}} Costs So Far</h2>
             <div layout="row" layout-align="start end">
@@ -22,13 +22,11 @@
             <div class="cost"><span class="material-icons">subdirectory_arrow_right</span>Food: {{hc.foodCost | currency}}</div>
             <div class="cost"><span class="material-icons">subdirectory_arrow_right</span>Other Costs: {{hc.otherCost | currency}}</div>
 
-
-
         </div>
 
-    <h2 layout layout-align="center center">Who still owes what?</h2>
-
-    <div layout="row" layout-align="center center">
+        <div class="separator"></div>
+        <div class="stillOwes">
+    <h2 layout="row" layout-align="center">Who still owes what?</h2>
     <table >
         <thead>
             <th>Housemate</th>
@@ -41,6 +39,7 @@
             <td>{{member.stillOwes | currency}}</td>
         </tbody>
     </table>
+</div>
 </div>
 <br><br><br>
 
