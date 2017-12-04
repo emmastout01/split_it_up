@@ -74,6 +74,10 @@ body {
 
 .button-icon {
   background-color: transparent; 
+  min-width: 30px;
+  width: 40px;
+  margin: 0px;
+  padding: 0px;
 }
 
 #addIcon {
@@ -206,4 +210,9 @@ h3 {
 
 .icon {
   font-size: 40px;
+}
+
+.accountIcon {
+  font-size: 30px;
+  margin: 0px;
 }
