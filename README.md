@@ -21,15 +21,18 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-Link to software that is required to install the app (e.g. node).
-
 - [Node.js](https://nodejs.org/en/)
-- List other prerequisites here
 
 
 ### Installing
 
-Steps to get the development environment running.
+In a terminal window, navigate to the project folder once saved on your computer.
+
+Run ```npm install```
+Make sure postgreSQL is running in an open terminal window
+```npm start```
+
+Enter the following SQL queries into Postico to create the necessary tables for this project.
 
 ```sql
 CREATE TABLE "users" (
