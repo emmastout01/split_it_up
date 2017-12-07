@@ -1,14 +1,23 @@
-# Name of Project
+# Split it Up! Cost Sharing Made Simple
 
-One Paragraph of project description goes here. Link to the live version of the app if it's hosted on Heroku.
+Split it Up! is a cost-sharing application that aims to provide housemates with an easy way to track and split up communal house expenses. It allows users to join a house or create an existing house and view a cost dashboard (including a "who still owes what?" table) for their house, as well as a table of all transactions for the month. Users can add, edite, and delete transactions. 
+
 
 ## Built With
 
-List technologies and frameworks here
+AngularJS
+Express
+Node.js
+PostgreSQL
+Angular Material
+Passport
+Moment.js
+FileStack API
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. 
+
 
 ### Prerequisites
 
@@ -27,6 +36,37 @@ CREATE TABLE "users" (
   "id" serial primary key,
   "username" varchar(80) not null UNIQUE,
   "password" varchar(240) not null
+);
+
+CREATE TABLE "houses" (
+	"id" serial primary key,
+	"houseName" varchar(80) not null UNIQUE,
+	"houseCode" varchar(4), 
+	"totalRent" INTEGER,
+	"closeOutDate" INTEGER	
+);
+
+
+CREATE TABLE "members" (
+	"id" SERIAL PRIMARY KEY,
+	"user_id" integer REFERENCES "users",
+	"house_id" integer REFERENCES "houses"	
+);
+	
+CREATE TABLE "categories" (
+	"id" SERIAL PRIMARY KEY,
+	"categoryName" varchar(60)	
+);
+
+CREATE TABLE "transactions" (
+	"id" SERIAL PRIMARY KEY,
+	"user_id" integer REFERENCES "users",
+	"house_id" integer REFERENCES "houses",
+	"date" DATE,
+	"amount" INTEGER,
+	"category_id" INTEGER REFERENCES "categories",
+	"notes" varchar(200),
+	"viewReceipt" varchar(80)	
 );
 ```
 
@@ -57,7 +97,7 @@ Add additional notes about how to deploy this on a live system
 
 ## Authors
 
-* Name of author(s)
+* Emma Stout
 
 
 ## Acknowledgments
