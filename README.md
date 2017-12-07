@@ -103,3 +103,7 @@ Make sure postgreSQL is running in an open terminal window.
 ## Authors
 
 * Emma Stout
+
+## Acknowledgements
+
+Chris Black, Kris Szafranski, Prime Digital Academy
