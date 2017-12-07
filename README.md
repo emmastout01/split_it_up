@@ -70,7 +70,9 @@ CREATE TABLE "transactions" (
 In a terminal window, navigate to the project folder once saved on your computer.
 
 Run ```npm install```
+
 Make sure postgreSQL is running in an open terminal window.
+
 ```npm start```
 
 ## Screen Shot
