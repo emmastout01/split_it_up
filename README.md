@@ -72,35 +72,28 @@ CREATE TABLE "transactions" (
 
 ## Screen Shot
 
-Include one or two screen shots of your project here (optional). Remove if unused.
+![picture](styles/screenshot1.png)
+
 
 ## Documentation
 
-Link to a read-only version of your scope document or other relevant documentation here (optional). Remove if unused.
-
 ### Completed Features
 
-High level list of items completed.
+- [x] Users can create a house or join an existing house
+- [x] When users select a house, they are taken to a dashboard displaying a breakdown of monthly house costs
+- [x] On house dashboard, users can view a "who still owes what?" table that shows how much each housemate has already paid for the month and how much they still owe toward communal costs
+- [x] Users can add a transaction, including select a category for the transaction and upload a photo of the transaction receipt
+- [x] Users can edit and delete transactions
+- [x] Users can view all transactions for the month in a table
+- [x] Users can edit their houses and remove themself from a house
 
-- [x] Feature a
-- [x] Feature b
 
 ### Next Steps
 
-Features that you would like to add at some point in the future.
+- [ ] Make the app mobile-responsive
+- [ ] Add a feature so that users can compare monthly spending to past months
 
-- [ ] Feature c
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
 
 ## Authors
 
 * Emma Stout
-
-
-## Acknowledgments
-
-* Hat tip to anyone who's code was used
-# split_it_up
