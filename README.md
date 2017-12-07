@@ -73,6 +73,7 @@ CREATE TABLE "transactions" (
 ## Screen Shot
 
 ![House Dashboard](server/public/styles/screenshot1.png)
+![View Transactions](server/public/styles/screenshot2.png)
 
 
 ## Documentation
