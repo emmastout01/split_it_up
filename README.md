@@ -26,13 +26,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Installing
 
-In a terminal window, navigate to the project folder once saved on your computer.
-
-Run ```npm install```
-Make sure postgreSQL is running in an open terminal window
-```npm start```
-
-Enter the following SQL queries into Postico to create the necessary tables for this project.
+First, enter the following SQL queries into Postico to create the necessary tables for this project.
 
 ```sql
 CREATE TABLE "users" (
@@ -72,6 +66,14 @@ CREATE TABLE "transactions" (
 	"viewReceipt" varchar(80)	
 );
 ```
+
+In a terminal window, navigate to the project folder once saved on your computer.
+
+Run ```npm install```
+
+Make sure postgreSQL is running in an open terminal window
+
+```npm start```
 
 ## Screen Shot
 
