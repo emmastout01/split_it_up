@@ -108,6 +108,9 @@ myApp.controller('EditDialogController', function (UserService, $routeParams, $m
     vm.getCategories();
 
     vm.editTransaction = function(transaction, houseId) {
+        var transactionToSend = {
+            
+        }
         vm.transactionService.editTransaction(transaction).then(function() {
             $mdDialog.hide()
         })

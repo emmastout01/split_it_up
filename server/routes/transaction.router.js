@@ -72,6 +72,7 @@ router.put('/:id', function (req, res) {
     if (req.isAuthenticated()) {
         var transaction = req.body;
         var transactionId = req.params.id; 
+        console.log('transaction', transaction.category);
         pool.connect(function (err, db, done) {
             if (err) {
                 console.log("Error connecting: ", err);
@@ -85,6 +86,7 @@ router.put('/:id', function (req, res) {
                         console.log('error making query', errorMakingQuery);
                         res.sendStatus(500);
                     } else {
+                        console.log(result.rows);
                         var category_id = result.rows[0].id;
                         var queryText = 'UPDATE "transactions" SET "amount" = $1, "category_id" = $2, "date" = $3, "notes"= $4, "viewReceipt"=$5 WHERE "id" = $6;'
                         db.query(queryText, [transaction.amount, category_id, transaction.date, transaction.notes, transaction.photo, transactionId], function (errorMakingQuery, result) {
@@ -93,6 +95,7 @@ router.put('/:id', function (req, res) {
                                 console.log('error making query', errorMakingQuery);
                                 res.sendStatus(500);
                             } else {
+                                console.log('new transaction updated');
                                 res.sendStatus(201);
                             }
                         });
