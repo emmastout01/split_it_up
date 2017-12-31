@@ -18,6 +18,7 @@ myApp.controller('EditDialogController', function (UserService, $routeParams, $m
     }
 
     console.log('transaction date', transaction.date);
+    
 
     vm.transaction = {
         id: parseInt(transaction.id),
@@ -27,9 +28,12 @@ myApp.controller('EditDialogController', function (UserService, $routeParams, $m
         date: moment(transaction.date).format('L'),
         category_id: transaction.category_id, //need to grab the NAME of the category where category_id = this
         notes: transaction.notes,
-        viewReceipt: transaction.viewReceipt
+        viewReceipt: transaction.viewReceipt,
+        categoryName: transaction.categoryName
     }
 
+    vm.origTransaction = transaction;
+    console.log('original transaction', vm.origTransaction);
     
 
     console.log('transaction', vm.transaction);
@@ -99,6 +103,7 @@ myApp.controller('EditDialogController', function (UserService, $routeParams, $m
 
     //Get request for all categories
     vm.getCategories = function() {
+        console.log('getting categories');
         vm.transactionService.getCategories().then(function (response) {
             vm.categories = response.data;
             console.log('categories:', vm.categories);

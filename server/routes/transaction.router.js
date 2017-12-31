@@ -72,7 +72,7 @@ router.put('/:id', function (req, res) {
     if (req.isAuthenticated()) {
         var transaction = req.body;
         var transactionId = req.params.id; 
-        console.log('transaction', transaction.category);
+        console.log('transaction', transaction.categoryName);
         pool.connect(function (err, db, done) {
             if (err) {
                 console.log("Error connecting: ", err);
@@ -80,7 +80,7 @@ router.put('/:id', function (req, res) {
             }
             else {
                 var queryText = 'SELECT "id" FROM "categories" WHERE "categoryName" = $1;' 
-                db.query(queryText, [transaction.category], function (errorMakingQuery, result) {
+                db.query(queryText, [transaction.categoryName], function (errorMakingQuery, result) {
                     done();
                     if (errorMakingQuery) {
                         console.log('error making query', errorMakingQuery);

@@ -89,7 +89,10 @@ myApp.controller('TransactionController', function ($routeParams, $mdDialog, Use
         targetEvent: ev,
         clickOutsideToClose: true,
         locals: { transaction: transaction }
-      })
+      }).then(function() {
+        console.log('finished updating!')
+        vm.getTransactionsForMonth(vm.houseId, vm.minDate, vm.maxDate);
+      });
 };
 
 

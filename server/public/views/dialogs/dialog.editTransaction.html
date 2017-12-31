@@ -15,7 +15,7 @@
                  <!-- <strong>Category: </strong><input type="text" ng-model="ec.newTransaction.category" placeholder='Category' /> <br> <br> -->
                  <strong>Category: </strong>  
                  <md-input-container>
-                    <md-select ng-model="ec.transaction.category">
+                    <md-select ng-model="ec.transaction.categoryName">
                         <md-option ng-repeat = "category in ec.categories" ng-value="category.categoryName">{{category.categoryName}}</md-option>
                     </md-select>
                  </md-input-container>
