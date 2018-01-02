@@ -1,6 +1,6 @@
 # Split it Up! Cost Sharing Made Simple
 
-Split it Up! is a cost-sharing application that aims to provide housemates with an easy way to track and split up communal house expenses. It allows users to join a house or create an existing house and view a cost dashboard (including a "who still owes what?" table) for their house, as well as a table of all transactions for the month. Users can add, edit, and delete transactions. 
+Split it Up! is a cost-sharing application that provides housemates with an easy way to track and split up communal house expenses. It allows users to join a house or create an existing house and view a cost dashboard (including a "who still owes what?" table) for their house, as well as a table of all transactions for the month. Users can add, edit, and delete transactions. 
 
 
 ## Built With
