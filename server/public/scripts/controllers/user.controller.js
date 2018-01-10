@@ -15,23 +15,21 @@ myApp.controller('UserController', function (MemberService, $location, $mdDialog
   vm.houseId = {
     id: ''
   }
+
+
   vm.getHouseId = function(userHouse) {
     console.log('just clicked on ', userHouse.id);
     vm.houseService.getHouseId(userHouse);
-    // $location.path('/houseHome/' + response.data[0].id);
   }
 
+  //Get list of houses that the user is a member of
   vm.getUserHouses = function() {
     vm.houseService.getUserHouses().then(function(response) {
       console.log('vm get user houses', response.data);
       vm.userHouses = response.data;
       if (response.data.length === 0) {
-        console.log('no houses!')
         vm.message = 'You are not connected to a house yet.'
       } else if (response.data.length ===1) {
-        //If the user is a member of just one house, direct the user to house homepage instead of 'choose a house' page
-       //Need to rethink this a little, because if you delete a house then it instantly redirects you to the house home page
-        // $location.path('/houseHome/' + response.data[0].id);
       } else {
         vm.message = 'Select one of your houses to view and add transactions for that house.'
       }
@@ -39,6 +37,7 @@ myApp.controller('UserController', function (MemberService, $location, $mdDialog
   }
   vm.getUserHouses();
 
+  //Remove a house from the user's list of houses.
   vm.removeHouse = function(userHouse) {
     console.log('user house', userHouse, userHouse.id);
       swal({
@@ -54,12 +53,12 @@ myApp.controller('UserController', function (MemberService, $location, $mdDialog
             vm.getUserHouses();
           })
         } else {
-          swal({title: "Phew!"})
+          swal({title: "Cancelled Delete"})
         }
       });
     }
     
-
+  //Get all houses in the database
   vm.getHouses = function () {
     vm.houseService.getHouses().then(function (response) {
       vm.houses = response.data;
@@ -67,9 +66,8 @@ myApp.controller('UserController', function (MemberService, $location, $mdDialog
   }
   vm.getHouses();
 
+  //This function runs when a user wants to join a new house. When they select a house to join, they are prompted with a Sweet Alert to enter a house code. If the house code is correct, the house is added to their house list. If they enter an incorrect code, a Sweet Alert informs them they have entered the wrong code.
   vm.selectHouse = function (selectedHouse) {
-    console.log('in selectHouse', selectedHouse);
-    // This function will then either ng-show an input field for house code and "join house" button, or create an alert to enter the code
     var dataToSend = {
       house: selectedHouse,
       code: ''
@@ -107,6 +105,7 @@ myApp.controller('UserController', function (MemberService, $location, $mdDialog
     }); //End sweet alert post route
   } //End selectHouse
 
+  //Opens the Create House dialog, which is controlled by dialog.controller.js. After the user creates a house, it will run the getHouses function to get all houses in the database.
   vm.createHouse = function (ev) {
     $mdDialog.show({
       templateUrl: '/views/dialogs/dialog.addHouse.html',

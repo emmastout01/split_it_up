@@ -63,12 +63,6 @@ myApp.service('HouseService', function($routeParams, $http, $location, UserServi
         })
     }
 
-    // self.getHouseId = function(userHouse) {
-    //     self.houseId.id = userHouse.id;
-    //     console.log('house service house id', self.houseId.id);
-    // }
-
-
     self.getHouses = function() {
         return $http.get('/house').then(function(response) {
             console.log('got houses', response);

@@ -10,34 +10,21 @@ myApp.controller('EditDialogController', function (UserService, $routeParams, $m
 
     vm.houseId = $routeParams.id;
     vm.currentHouse = {};
-    vm.number = {
-        number:2
-    }
-    vm.secondNumber = {
-        number: 2
-    }
-
-    console.log('transaction date', transaction.date);
     
-
+    // This is the transaction that the user clicked on to edit. We're pulling information from 'transaction', which was sent as locals in the md-dialog function in the transaction controller.
     vm.transaction = {
         id: parseInt(transaction.id),
         user_id: transaction.user_id,
         house_id: transaction.house_id,
         amount: parseFloat(transaction.amount),
         date: moment(transaction.date).format('L'),
-        category_id: transaction.category_id, //need to grab the NAME of the category where category_id = this
+        category_id: transaction.category_id, 
         notes: transaction.notes,
         viewReceipt: transaction.viewReceipt,
         categoryName: transaction.categoryName
     }
 
-    vm.origTransaction = transaction;
-    console.log('original transaction', vm.origTransaction);
-    
-
-    console.log('transaction', vm.transaction);
-       
+// Get data for the current house that we are in. Specifically, we want access to the house's close out date.
       vm.getCurrentHouse = function(houseId) {
         vm.houseService.getCurrentHouse(houseId).then(function(response) {
           vm.currentHouse = {
@@ -47,18 +34,17 @@ myApp.controller('EditDialogController', function (UserService, $routeParams, $m
             closeOutDate: response.data[0].closeOutDate
         }
         return vm.currentHouse;
+        // Then, get the minimum and maximum dates to display in the datepicker, using the house's close out date.
         }).then(function() {
-            vm.number.number = vm.currentHouse.closeOutDate;
-            vm.secondNumber.number = vm.currentHouse.closeOutDate - 1;
             vm.minDate = new Date(
                 vm.myDate.getFullYear(),
                 vm.myDate.getMonth(),
-                -vm.number.number
+                -vm.currentHouse.closeOutDate
             );
             vm.maxDate = new Date(
                 vm.myDate.getFullYear(),
                 vm.myDate.getMonth() + 1,
-                -vm.secondNumber.number
+                -(vm.currentHouse.closeOutDate - 1)
             );
         }) 
     }
@@ -71,9 +57,7 @@ myApp.controller('EditDialogController', function (UserService, $routeParams, $m
         };
     
 
-///When I come back: need to be able to access the close out date for the current house in order to change the calendar on add transaction dialog
-
-    //Filestack for add transaction dialog 
+   //Filestack API: When user clicks 'Upload photo of receipt', use FileStack API to upload image from local file system
     vm.apikey = 'AuSmv6aEsT2acrLuuw0HRz';
     vm.filestackClient = filestack.init(vm.apikey);
 
@@ -84,7 +68,6 @@ myApp.controller('EditDialogController', function (UserService, $routeParams, $m
         fromSources:["local_file_system","dropbox", "url", "imagesearch"],
         accept:["image/*"]
       }).then(function(response) {
-        // declare this function to handle response
         handleFilestack(response);
       });
     };
@@ -97,11 +80,7 @@ myApp.controller('EditDialogController', function (UserService, $routeParams, $m
     }
 
 
-    // House dialog on user home page
-
-    //Add house on submit click
-
-    //Get request for all categories
+    //Get all categories that a user can choose from
     vm.getCategories = function() {
         console.log('getting categories');
         vm.transactionService.getCategories().then(function (response) {
@@ -112,16 +91,11 @@ myApp.controller('EditDialogController', function (UserService, $routeParams, $m
 
     vm.getCategories();
 
+    //Edit transaction route
     vm.editTransaction = function(transaction, houseId) {
-        var transactionToSend = {
-            
-        }
         vm.transactionService.editTransaction(transaction).then(function() {
             $mdDialog.hide()
         })
-        // .then(function() {
-        //     vm.transactionService.getTransactions(houseId);
-        // })
     }
 
 });

@@ -50,18 +50,6 @@ myApp.controller('EditHouseController', function ($routeParams, $mdDialog, House
         };
     
 
-    //Add house on submit click
-
-
-    // vm.addHouse = function (newHouse) {
-    //     console.log('editi house');
-    //     vm.houseService.addHouse(newHouse).then(function () {
-    //         $mdDialog.hide()
-    //     }).then(function () {
-    //         vm.houseService.getHouses();
-    //     })
-    // }
-
     //Numbers for close out dates on addHouse form
     vm.numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 

@@ -17,7 +17,6 @@ myApp.controller('AboutController', function (MemberService, $location, $mdDialo
     vm.getHouseId = function(userHouse) {
       console.log('just clicked on ', userHouse.id);
       vm.houseService.getHouseId(userHouse);
-      // $location.path('/houseHome/' + response.data[0].id);
     }
 
     vm.currentHouse = {
@@ -29,7 +28,6 @@ myApp.controller('AboutController', function (MemberService, $location, $mdDialo
        
       vm.getCurrentHouse = function(houseId) {
         vm.houseService.getCurrentHouse(houseId).then(function(response) {
-          console.log('we are in house', response.data[0]);
           vm.currentHouse = {
             id: response.data[0].id,
             name: response.data[0].houseName,

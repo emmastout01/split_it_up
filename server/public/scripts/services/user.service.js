@@ -7,7 +7,6 @@ myApp.service('UserService', function($http, $location){
     console.log('UserService -- getuser');
     $http.get('/user').then(function(response) {
         if(response.data.username) {
-            // user has a curret session on the server
             self.userObject.userName = response.data.username;
             self.userObject.userId = response.data.id;
             console.log('UserService -- getuser -- User Data: ', self.userObject.userName);

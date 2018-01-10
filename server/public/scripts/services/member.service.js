@@ -11,14 +11,10 @@ myApp.service('MemberService', function($routeParams, $http, $location, UserServ
         console.log('member to send', memberToSend, memberToSend.userId);
         return $http.post('/member', memberToSend).then(function(response) {
             console.log('new member post', response)
-            // self.getHouses();
             return response;
         }).catch(function(err) {
-            if(err.status === 401) {
-            //    alert('The house code you entered is incorrect. Please try again.');
-            }
             return err;
-            // console.log('problem with post route', err);
+            console.log('problem with post route', err);
         })
     }
 
