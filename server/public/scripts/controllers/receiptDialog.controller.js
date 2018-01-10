@@ -6,7 +6,7 @@ myApp.controller('ReceiptDialogController', function ($mdDialog, HouseService, U
     vm.userObject = UserService.userObject;
     vm.transactionService = TransactionService;
 
-    //Filestack for add transaction dialog 
+    //Filestack API: When user clicks 'Upload photo of receipt' in Add Transaction Dialog, use FileStack API to upload image from local file system
     vm.apikey = 'AuSmv6aEsT2acrLuuw0HRz';
     vm.filestackClient = filestack.init(vm.apikey);
 
@@ -26,12 +26,12 @@ myApp.controller('ReceiptDialogController', function ($mdDialog, HouseService, U
       console.log(response.filesUploaded[0]);
       vm.response.img = response.filesUploaded[0].url;
       console.log(vm.response);
-      swal('woohoo!', 'we\'ve got your image!', 'success');
-    }
+      swal('Receipt added!', 'Your receipt has been added.', 'success');
+    } 
+    //End filestack
 
 
     // House dialog on user home page
-
     vm.photo = photo;
 
     // Cancels a dialog box

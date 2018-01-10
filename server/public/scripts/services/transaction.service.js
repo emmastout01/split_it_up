@@ -37,6 +37,7 @@ myApp.service('TransactionService', function($http, $routeParams, $location, Use
         })
     }
 
+    //GET categories route
     self.getCategories = function () {
         return $http.get('/category').then(function (response) {
             console.log('got categories', response);
@@ -45,6 +46,7 @@ myApp.service('TransactionService', function($http, $routeParams, $location, Use
         })
     }
 
+    //PUT transaction route
     self.editTransaction = function(transaction) {
         console.log('sending transaction', transaction);
         return $http.put('/transaction/' + transaction.id, transaction).then(function(response) {
@@ -55,6 +57,7 @@ myApp.service('TransactionService', function($http, $routeParams, $location, Use
         })
     }
 
+    //DELETE transaction route
     self.deleteTransaction = function(transactionId) {
         return $http.delete('/transaction/' + transactionId).then(function(response) {
             console.log('transaction deleted!', response)

@@ -6,105 +6,12 @@ myApp.controller('DialogController', function ($routeParams, $mdDialog, HouseSer
     vm.userObject = UserService.userObject;
     vm.transactionService = TransactionService;
 
-    vm.categories = [];
-
-    vm.houseId = $routeParams.id;
-    vm.currentHouse = {};
-
-    vm.closeOutDate; 
-
-    vm.number = {
-        number:2
-    }
-    vm.secondNumber = {
-        number: 2
-    }
-       
-      vm.getCurrentHouse = function(houseId) {
-        vm.houseService.getCurrentHouse(houseId).then(function(response) {
-          console.log('we are in house', response.data[0]);
-          vm.currentHouse = {
-            id: response.data[0].id,
-            name: response.data[0].houseName,
-            rent: response.data[0].totalRent,
-            closeOutDate: response.data[0].closeOutDate
-        }
-        return vm.currentHouse;
-        }).then(function() {
-            console.log('close out date in dc', vm.currentHouse);
-            vm.number.number = vm.currentHouse.closeOutDate;
-            vm.secondNumber.number = vm.currentHouse.closeOutDate - 1;
-            vm.minDate = new Date(
-                vm.myDate.getFullYear(),
-                vm.myDate.getMonth(),
-                -vm.number.number
-            );
-        
-            vm.maxDate = new Date(
-                vm.myDate.getFullYear(),
-                vm.myDate.getMonth() + 1,
-                -vm.secondNumber.number
-            );
-        }) 
-    }
-  
-
-    vm.getCurrentHouse(vm.houseId);
-
-
-    vm.myDate = new Date();
+    //ADD HOUSE DIALOG
     
-        // vm.minDate = new Date(
-        //     vm.myDate.getFullYear(),
-        //     vm.myDate.getMonth(),
-        //     -vm.number.number
-        // );
-    
-        // vm.maxDate = new Date(
-        //     vm.myDate.getFullYear(),
-        //     vm.myDate.getMonth() + 1,
-        //     -vm.secondNumber.number
-        // );
-    
-    
-        // Cancels a dialog box
-        vm.cancel = function () {
-            console.log('canceled dialog');
-            $mdDialog.cancel();
-        };
-    
+    //Numbers for close out dates on addHouse form
+    vm.numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-///When I come back: need to be able to access the close out date for the current house in order to change the calendar on add transaction dialog
-
-    //Filestack for add transaction dialog 
-    vm.apikey = 'AuSmv6aEsT2acrLuuw0HRz';
-    vm.filestackClient = filestack.init(vm.apikey);
-
-    vm.response = {img:''}; 
-
-    vm.openPicker = function() {
-      vm.filestackClient.pick({
-        fromSources:["local_file_system","dropbox", "url", "imagesearch"],
-        accept:["image/*"]
-      }).then(function(response) {
-        // declare this function to handle response
-        handleFilestack(response);
-      });
-    };
-  
-    function handleFilestack(response) {
-      console.log(response.filesUploaded[0]);
-      vm.response.img = response.filesUploaded[0].url;
-      console.log(vm.response);
-      swal('woohoo!', 'we\'ve got your image!', 'success');
-    }
-
-
-    // House dialog on user home page
-
-    //Add house on submit click
-
- 
+    // Add house route
     vm.addHouse = function (newHouse) {
         console.log('adding house');
         vm.houseService.addHouse(newHouse).then(function () {
@@ -113,12 +20,85 @@ myApp.controller('DialogController', function ($routeParams, $mdDialog, HouseSer
             vm.houseService.getHouses();
         })
     }
+    //END ADD HOUSE DIALOG
 
-    //Numbers for close out dates on addHouse form
-    vm.numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    //ADD TRANSACTION DIALOG
+    vm.categories = [];
+    vm.houseId = $routeParams.id;
+    vm.currentHouse = {};
+    vm.myDate = new Date();
+
+    // Get data for the current house that we are in. Specifically, we want access to the house's close out date.
+    vm.getCurrentHouse = function (houseId) {
+        vm.houseService.getCurrentHouse(houseId).then(function (response) {
+            console.log('we are in house', response.data[0]);
+            vm.currentHouse = {
+                id: response.data[0].id,
+                name: response.data[0].houseName,
+                rent: response.data[0].totalRent,
+                closeOutDate: response.data[0].closeOutDate
+            }
+            return vm.currentHouse;
+            // Then, get the minimum and maximum dates to display in the datepicker, using the house's close out date.
+        }).then(function () {
+            vm.minDate = new Date(
+                vm.myDate.getFullYear(),
+                vm.myDate.getMonth(),
+                -vm.currentHouse.closeOutDate
+            );
+
+            vm.maxDate = new Date(
+                vm.myDate.getFullYear(),
+                vm.myDate.getMonth() + 1,
+                -vm.currentHouse.closeOutDate - 1
+            );
+        })
+    }
+
+    vm.getCurrentHouse(vm.houseId);
 
 
-    //Add transaction dialog on add transaction page
+    // Cancels a dialog box
+    vm.cancel = function () {
+        console.log('canceled dialog');
+        $mdDialog.cancel();
+    };
+
+
+    //Filestack API: When user clicks 'Upload photo of receipt', use FileStack API to upload image from local file system
+    vm.apikey = 'AuSmv6aEsT2acrLuuw0HRz';
+    vm.filestackClient = filestack.init(vm.apikey);
+
+    vm.response = { img: '' };
+
+    vm.openPicker = function () {
+        vm.filestackClient.pick({
+            fromSources: ["local_file_system", "dropbox", "url", "imagesearch"],
+            accept: ["image/*"]
+        }).then(function (response) {
+            // declare this function to handle response
+            handleFilestack(response);
+        });
+    };
+
+    function handleFilestack(response) {
+        console.log(response.filesUploaded[0]);
+        vm.response.img = response.filesUploaded[0].url;
+        console.log(vm.response);
+        swal('woohoo!', 'we\'ve got your image!', 'success');
+    }
+
+    //Get all categories that a user can choose from
+    vm.getCategories = function () {
+        vm.transactionService.getCategories().then(function (response) {
+            vm.categories = response.data;
+            console.log('categories:', vm.categories);
+        })
+    }
+
+    vm.getCategories();
+
+    //Add transaction route
     vm.addTransaction = function (newTransaction) {
         var transactionToAdd = {
             date: newTransaction.date,
@@ -133,18 +113,7 @@ myApp.controller('DialogController', function ($routeParams, $mdDialog, HouseSer
         })
     }
 
-    //Get request for all categories
-    vm.getCategories = function() {
-        vm.transactionService.getCategories().then(function (response) {
-          vm.categories = response.data;
-            console.log('categories:', vm.categories);
-        })
-    }
 
-    vm.getCategories();
-
-    vm.getTransactionToEdit = function() {
-        
-    }
+    //END ADD TRANSACTION DIALOG
 
 });

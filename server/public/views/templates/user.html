@@ -4,9 +4,9 @@
     <h1 id="welcome" class="lead">Welcome, {{uc.userObject.userName}}!</h1>
     <h3>{{uc.message}}</h3>
     <div layout="row" ng-repeat="userHouse in uc.userHouses">
-            <a href="#/houseHome/{{userHouse.id}}">
-                <md-button class="houseButton button" ng-click="uc.getHouseId(userHouse)">{{userHouse.houseName}}</md-button>
-            </a>
+        <a href="#/houseHome/{{userHouse.id}}">
+            <md-button class="houseButton button" ng-click="uc.getHouseId(userHouse)">{{userHouse.houseName}}</md-button>
+        </a>
     </div>
     <br>
     <hr>
@@ -21,7 +21,7 @@
     </md-input-container>
     <md-button class="button" ng-click="uc.selectHouse(uc.selectedHouse)" aria-label="select house">Select house</md-button>
     <br>
-    
+
     <hr>
     <br>
     <h3>Or create a new house.</h3>

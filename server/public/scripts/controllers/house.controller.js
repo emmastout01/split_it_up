@@ -22,7 +22,8 @@ myApp.controller('HouseController', function (TransactionService, MemberService,
   vm.totalCost = 0;
   vm.costPerPerson = 0;
 
-  //Function for getting transactions. Is called when current house is loaded
+  //Get the total food costs, utilities costs, and 'other' costs for the month, and add to monthly house rent to get total monthly cost.
+  //Called below within vm.getCurrentHouse(houseId)
   vm.getTransactionsForMonth = function (houseId, minDate, maxDate) {
     vm.transactionService.getTransactionsForMonth(houseId, minDate, maxDate).then(function (response) {
       vm.transactionsForMonth = response.data;
@@ -37,8 +38,7 @@ myApp.controller('HouseController', function (TransactionService, MemberService,
     })
   }
 
-
-  //Get data for the house that we are in
+   //Get the current house on page load. This gives us access to the chosen close-out date for the house. With that information, we then get transactions for the month between the close-out date for last month and the close-out date for the current month.
   vm.getCurrentHouse = function (houseId) {
     vm.houseService.getCurrentHouse(houseId).then(function (response) {
       console.log('we are in house', response.data[0]);
@@ -59,16 +59,13 @@ myApp.controller('HouseController', function (TransactionService, MemberService,
           vm.myDate.getMonth(),
           -vm.minDateNumber
         );
-
         vm.minDate = moment(vm.minDate).format('YYYY-MM-DD');
-
 
         vm.maxDate = new Date(
           vm.myDate.getFullYear(),
           vm.myDate.getMonth() + 1,
           -vm.maxDateNumber
         );
-
         vm.maxDate = moment(vm.maxDate).format('YYYY-MM-DD');
       })
       //Then, using the minDate and maxDate, get transactions for the range between the min and the max date
@@ -78,7 +75,7 @@ myApp.controller('HouseController', function (TransactionService, MemberService,
   }
   vm.getCurrentHouse(vm.houseId);
 
-  //Get utility costs for house for month
+  //Get 'utility' costs for house for month
   vm.getUtilCost = function (transactions) {
     var result = 0;
     for (var i = 0; i < transactions.length; i++) {
@@ -90,7 +87,7 @@ myApp.controller('HouseController', function (TransactionService, MemberService,
     vm.utilCost = result;
   }
 
-  //Get food costs for house for month
+  //Get 'food' costs for house for month
   vm.getFoodCost = function (transactions) {
     var result = 0;
     for (var i = 0; i < transactions.length; i++) {
@@ -101,7 +98,7 @@ myApp.controller('HouseController', function (TransactionService, MemberService,
     vm.foodCost = result;
   }
 
-  //Get other costs for house for month
+  //Get 'other' costs for house for month
   vm.getOtherCost = function (transactions) {
     var result = 0;
     for (var i = 0; i < transactions.length; i++) {
@@ -112,9 +109,7 @@ myApp.controller('HouseController', function (TransactionService, MemberService,
     vm.otherCost = result;
   }
 
-
-
-  //Get members of the house
+  //Get members of the house. Set vm.costPerPerson = total cost / total number of house members.
   vm.getMembers = function (houseId) {
     vm.memberService.getMembers(houseId).then(function (response) {
       vm.members = response.data;
@@ -125,6 +120,7 @@ myApp.controller('HouseController', function (TransactionService, MemberService,
     })
   }
 
+  //Determine what each user has already paid this month: Add up all transactions between last month's close out date and this month's close out date for each user.
   function findAlreadyPaid(members) {
     var transactions = vm.transactionsForMonth;
     console.log('transactions', transactions);
@@ -138,27 +134,12 @@ myApp.controller('HouseController', function (TransactionService, MemberService,
     }
   }
 
+  //Grab the total cost per person , and subtract what this member has already paid. This will give us what the member still owes this month.
   function findStillOwes(members) {
-
-//In the still owes column: I want to grab the total cost per person, and subtract what this member has already paid. 
     for (var i = 0; i < members.length; i++) {
       members[i].stillOwes = 0;
       members[i].stillOwes = vm.costPerPerson - members[i].alreadyPaid
       }
     }
-
-  //The already paid function: should be the sum of all transaction amounts where the user id is the member id.
-
-  //Add a transaction
-  // vm.addTransaction = function (ev) {
-  //   $mdDialog.show({
-  //     templateUrl: '/views/dialogs/dialog.addTransaction.html',
-  //     controller: 'DialogController as dc',
-  //     targetEvent: ev,
-  //     clickOutsideToClose: false
-  //   })
-  // };
-
-
 
 }); //End controller
