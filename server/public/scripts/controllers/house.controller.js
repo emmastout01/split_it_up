@@ -1,4 +1,4 @@
-myApp.controller('HouseController', function (TransactionService, MemberService, HouseService, $mdDialog, $routeParams) {
+myApp.controller('HouseController', function ($mdDialog, $routeParams, TransactionService, MemberService, HouseService) {
   console.log('HouseController created');
   var vm = this;
   vm.houseService = HouseService;
