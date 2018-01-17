@@ -70,6 +70,7 @@ myApp.controller('TransactionController', function ($routeParams, $mdDialog, Use
 
 
 
+
   // Edit transactions: This opens the edit transactions dialog, controlled by editTransaction.controller.js. We're sending the current transaction as locals.
   vm.editTransaction = function (ev, transaction) {
       $mdDialog.show({
