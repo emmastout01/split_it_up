@@ -104,7 +104,7 @@ router.put('/:id', function (req, res) {
             }
         }); //end of pool
     } // end req.isAuthenticated
-}); //end of put
+}); //end of put route
 
 //DELETE route
 router.delete('/:id', function (req, res) {
