@@ -1,5 +1,4 @@
 myApp.controller('HouseController', function ($mdDialog, $routeParams, TransactionService, MemberService, HouseService) {
-  console.log('HouseController created');
   var vm = this;
   vm.houseService = HouseService;
   vm.memberService = MemberService;
@@ -13,6 +12,7 @@ myApp.controller('HouseController', function ($mdDialog, $routeParams, Transacti
   vm.maxDateNumber = '';
   vm.minDate = '';
   vm.myDate = new Date;
+  console.log('my date', vm.myDate);
 
   vm.thisMonth = moment().format('MMMM');
 
@@ -33,7 +33,6 @@ myApp.controller('HouseController', function ($mdDialog, $routeParams, Transacti
       vm.getMembers(vm.houseId);
     }).then(function () {
       vm.totalCost = vm.utilCost + vm.foodCost + vm.otherCost + vm.currentHouse.rent;
-      console.log('vm. members', vm.members.length);
       
     })
   }
@@ -41,7 +40,6 @@ myApp.controller('HouseController', function ($mdDialog, $routeParams, Transacti
    //Get the current house on page load. This gives us access to the chosen close-out date for the house. With that information, we then get transactions for the month between the close-out date for last month and the close-out date for the current month.
   vm.getCurrentHouse = function (houseId) {
     vm.houseService.getCurrentHouse(houseId).then(function (response) {
-      console.log('we are in house', response.data[0]);
       vm.currentHouse = {
         id: response.data[0].id,
         name: response.data[0].houseName,
@@ -57,16 +55,18 @@ myApp.controller('HouseController', function ($mdDialog, $routeParams, Transacti
         vm.minDate = new Date(
           vm.myDate.getFullYear(),
           vm.myDate.getMonth(),
-          -vm.minDateNumber
+          -vm.currentHouse.closeOutDate
         );
         vm.minDate = moment(vm.minDate).format('YYYY-MM-DD');
+        console.log('min date', vm.minDate);
 
         vm.maxDate = new Date(
           vm.myDate.getFullYear(),
           vm.myDate.getMonth() + 1,
-          -vm.maxDateNumber
+          -vm.currentHouse.closeOutDate
         );
         vm.maxDate = moment(vm.maxDate).format('YYYY-MM-DD');
+        console.log('max date', vm.maxDate);
       })
       //Then, using the minDate and maxDate, get transactions for the range between the min and the max date
       .then(function () {
@@ -80,7 +80,6 @@ myApp.controller('HouseController', function ($mdDialog, $routeParams, Transacti
     var result = 0;
     for (var i = 0; i < transactions.length; i++) {
       if (transactions[i].category_id === 2 || 3 || 4 || 5 || 6) {
-        console.log('getting this util cost', transactions[i].category_id);
         result += parseFloat(transactions[i].amount);
       }
     }
@@ -116,14 +115,12 @@ myApp.controller('HouseController', function ($mdDialog, $routeParams, Transacti
       vm.costPerPerson = vm.totalCost / vm.members.length;
       findAlreadyPaid(vm.members);
       findStillOwes(vm.members);
-      console.log('vm.members', vm.members);
     })
   }
 
   //Determine what each user has already paid this month: Add up all transactions between last month's close out date and this month's close out date for each user.
   function findAlreadyPaid(members) {
     var transactions = vm.transactionsForMonth;
-    console.log('transactions', transactions);
     for (var i = 0; i < members.length; i++) {
       members[i].alreadyPaid = 0;
       for (var j = 0; j < transactions.length; j++) {

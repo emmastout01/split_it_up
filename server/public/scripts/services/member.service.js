@@ -1,5 +1,4 @@
 myApp.service('MemberService', function($routeParams, $http, $location, UserService){
-    console.log('MemberService Loaded');
     var self = this;
 
     self.addMember = function(newMemberCode, selectedHouse){
@@ -10,7 +9,6 @@ myApp.service('MemberService', function($routeParams, $http, $location, UserServ
         }
         console.log('member to send', memberToSend, memberToSend.userId);
         return $http.post('/member', memberToSend).then(function(response) {
-            console.log('new member post', response)
             return response;
         }).catch(function(err) {
             return err;
@@ -20,7 +18,6 @@ myApp.service('MemberService', function($routeParams, $http, $location, UserServ
 
     self.getMembers = function(houseId) {
         return $http.get('/member/' + houseId).then(function(response) {
-            console.log('got members', response)
             return response;
         }).catch(function(err) {
             console.log('error', err);
@@ -30,7 +27,6 @@ myApp.service('MemberService', function($routeParams, $http, $location, UserServ
 
     self.removeHouse = function(userHouse) {
         return $http.delete('/member/' + userHouse).then(function(response) {
-            console.log('deleted house', response);
             return response;
         })
     }
