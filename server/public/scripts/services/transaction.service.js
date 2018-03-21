@@ -15,7 +15,7 @@ myApp.service('TransactionService', function($http, $routeParams, $location, Use
             houseId: houseId,
             date: newTransaction.date,
             amount: newTransaction.amount,
-            category: newTransaction.category,
+            categorfy: newTransaction.category,
             notes: newTransaction.notes,
             photo: newTransaction.photo
         }

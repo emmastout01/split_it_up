@@ -1,5 +1,4 @@
 myApp.controller('TransactionController', function ($routeParams, $mdDialog, UserService, TransactionService, HouseService) {
-  console.log('TransactionController created');
   var vm = this;
   vm.userService = UserService;
   vm.transactionService = TransactionService;
@@ -34,7 +33,6 @@ myApp.controller('TransactionController', function ($routeParams, $mdDialog, Use
   //Get the current house on page load. This gives us access to the chosen close-out date for the house. With that information, we then get transactions for the month between the close-out date for last month and the close-out date for the current month.
   vm.getCurrentHouse = function (houseId) {
     vm.houseService.getCurrentHouse(houseId).then(function (response) {
-      console.log('we are in house', response.data[0]);
       vm.currentHouse = {
         id: response.data[0].id,
         name: response.data[0].houseName,
@@ -80,7 +78,6 @@ myApp.controller('TransactionController', function ($routeParams, $mdDialog, Use
         clickOutsideToClose: true,
         locals: { transaction: transaction }
       }).then(function() {
-        console.log('finished updating!')
         vm.getTransactionsForMonth(vm.houseId, vm.minDate, vm.maxDate);
       });
 };
@@ -88,7 +85,6 @@ myApp.controller('TransactionController', function ($routeParams, $mdDialog, Use
 
   //Delete transactions
   vm.deleteTransaction = function (transactionId) {
-    console.log('delete');
     vm.transactionService.deleteTransaction(transactionId).then(function (response) {
       vm.getTransactionsForMonth(vm.houseId, vm.minDate, vm.maxDate);
     })
@@ -115,8 +111,6 @@ myApp.controller('TransactionController', function ($routeParams, $mdDialog, Use
       targetEvent: ev,
       clickOutsideToClose: true,
       locals: { photo: vm.thisTransactionPhoto.photo }
-    }).then(function() {
-      console.log('here');
     })
   };
 
