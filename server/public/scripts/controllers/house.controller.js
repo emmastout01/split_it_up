@@ -8,8 +8,6 @@ myApp.controller('HouseController', function ($mdDialog, $routeParams, Transacti
   vm.currentHouse = '';
   vm.members = '';
   vm.transactionsForMonth = [];
-  vm.minDateNumber = '';
-  vm.maxDateNumber = '';
   vm.minDate = '';
   vm.myDate = new Date;
   console.log('my date', vm.myDate);
@@ -25,6 +23,7 @@ myApp.controller('HouseController', function ($mdDialog, $routeParams, Transacti
   //Get the total food costs, utilities costs, and 'other' costs for the month, and add to monthly house rent to get total monthly cost.
   //Called below within vm.getCurrentHouse(houseId)
   vm.getTransactionsForMonth = function (houseId, minDate, maxDate) {
+    console.log('In get transactions, min and max date: ', minDate, maxDate);
     vm.transactionService.getTransactionsForMonth(houseId, minDate, maxDate).then(function (response) {
       vm.transactionsForMonth = response.data;
       vm.getUtilCost(vm.transactionsForMonth);

@@ -52,8 +52,8 @@ router.get('/:id/:min/:max', function (req, res) {
                 res.sendStatus(500);
             }
             else {
-                var queryText = 'SELECT "transactions".*, "categories"."categoryName", "users"."username" FROM "transactions" JOIN "categories" ON "categories"."id" = "transactions"."category_id" JOIN "users" ON "users"."id" = "transactions"."user_id" WHERE "transactions"."house_id" = $1 AND "transactions"."date" <= $2'
-                db.query(queryText, [houseId, maxDate], function (errorMakingQuery, result) {
+                var queryText = 'SELECT "transactions".*, "categories"."categoryName", "users"."username" FROM "transactions" JOIN "categories" ON "categories"."id" = "transactions"."category_id" JOIN "users" ON "users"."id" = "transactions"."user_id" WHERE "transactions"."house_id" = $1 AND "transactions"."date" >= $2 AND "transactions"."date" <= $3'
+                db.query(queryText, [houseId, minDate, maxDate], function (errorMakingQuery, result) {
                     done();
                     if (errorMakingQuery) {
                         console.log('error making query', errorMakingQuery);
